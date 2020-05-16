@@ -348,21 +348,39 @@ namespace BOMBERMAN
                         if (CollisionBetweenRectagle(map.Player1.Source, map.MapMatrice[i,j].Source))
                         {
                            
-                            map.Player1.IsAlive = false;
-                            map.MapMatrice[i, j].Fire = false;
-                            map.MapMatrice[i, j].IndexFrame = 0;
-                            map.MapMatrice[i, j].UnloadSprite();
-                                //load bood sprite
-
+                            if(map.Player1.Life <= 0)
+                            {
+                                map.Player1.IsAlive = false;
+                                map.MapMatrice[i, j].Fire = false;
+                                map.Player1.LoadSprites(Properties.Resources.WB_DEAD);
+                                map.Player1.FrameSpeed = 10;
+                            }
+                            else
+                            {
+                                map.Player1.Life--;
+                                map.MapMatrice[i, j].Fire = false;
+                                map.MapMatrice[i, j].IndexFrame = 0;
+                                map.MapMatrice[i, j].UnloadSprite();
+                            }
+                           
+                               //load bood sprite
                         }
                         else if(CollisionBetweenRectagle(map.Player2.Source, map.MapMatrice[i, j].Source))
                         {
-                            
-                            map.Player2.IsAlive = false;
-                            map.MapMatrice[i, j].Fire = false;
-                            map.MapMatrice[i, j].IndexFrame = 0;
-                            map.MapMatrice[i, j].UnloadSprite();
-                            //load bood sprite
+                            if (map.Player2.Life <= 0)
+                            {
+                                map.Player2.IsAlive = false;
+                                map.Player2.LoadSprites(Properties.Resources.WB_DEAD);
+                                map.MapMatrice[i, j].Fire = false;
+                                map.Player2.FrameSpeed = 10;
+                            }
+                            else
+                            {
+                                map.Player1.Life--;
+                                map.MapMatrice[i, j].Fire = false;
+                                map.MapMatrice[i, j].IndexFrame = 0;
+                                map.MapMatrice[i, j].UnloadSprite();
+                            }
                         }
                         else if(map.MapMatrice[i,j].FireTime <= 0)
                         {
