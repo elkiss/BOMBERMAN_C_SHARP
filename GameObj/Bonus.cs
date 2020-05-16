@@ -11,7 +11,7 @@ namespace BOMBERMAN.GameObj
 
          public enum Bonustype
         {
-            ARMOR,
+            BOMBE,
             SPEED,
             D_SPEED,
             DISAMORCE,
@@ -19,7 +19,8 @@ namespace BOMBERMAN.GameObj
             EFFECT,
             D_EFFET,
             KICK,
-            LAUNCH
+            LAUNCH,
+            NONE
         }
 
         private Bonustype bonusTtype;

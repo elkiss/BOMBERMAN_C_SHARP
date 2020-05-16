@@ -73,6 +73,16 @@ namespace BOMBERMAN.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap B_DEFFECT {
+            get {
+                object obj = ResourceManager.GetObject("B_DEFFECT", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap B_DISM {
             get {
                 object obj = ResourceManager.GetObject("B_DISM", resourceCulture);
@@ -133,29 +143,9 @@ namespace BOMBERMAN.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap B_LUNCH {
-            get {
-                object obj = ResourceManager.GetObject("B_LUNCH", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap B_SPEED {
             get {
                 object obj = ResourceManager.GetObject("B_SPEED", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap bomb {
-            get {
-                object obj = ResourceManager.GetObject("bomb", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -206,16 +196,6 @@ namespace BOMBERMAN.Properties {
         internal static System.Drawing.Bitmap briqueSolid {
             get {
                 object obj = ResourceManager.GetObject("briqueSolid", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap D_EFFECT {
-            get {
-                object obj = ResourceManager.GetObject("D_EFFECT", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

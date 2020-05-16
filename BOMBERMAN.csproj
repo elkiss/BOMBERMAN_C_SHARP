@@ -58,6 +58,11 @@
     <Compile Include="GameObj\GameObjets.cs" />
     <Compile Include="GameObj\Player.cs" />
     <Compile Include="GameWorlds\Tile.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Sc_game.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,14 +77,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -96,9 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\brickDest.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\whiteB.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\briqueSolid.png" />
@@ -125,9 +122,6 @@
     <None Include="Resources\IC_BOMB.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bombe.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\FIRE.png" />
   </ItemGroup>
   <ItemGroup>
@@ -146,9 +140,6 @@
     <None Include="Resources\BOMBE.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bomb.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\B_BOMB.png" />
   </ItemGroup>
   <ItemGroup>
@@ -164,19 +155,16 @@
     <None Include="Resources\B_LIFE.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\B_LUNCH.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\B_SPEED.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\D_EFFECT.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\B_LAUNCH.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\B_DISM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B_DEFFECT.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

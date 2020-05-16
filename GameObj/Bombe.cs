@@ -82,18 +82,29 @@ namespace BOMBERMAN.GameObj
 
             if (PLeft)
             {
-                for (int i = 0; i < effect; i++)
+                for (int i = 0; i <= effect; i++)
                 {
                     if(col-i >= 0)
                     {
-                        if(tileMap[col-i,line].IsDestoyable || !tileMap[col - i, line].IsSolid)
+                        
+                        if(tileMap[col - i,line].IsDestoyable && tileMap[col - i,line].IsSolid)
                         {
                             tileMap[col - i, line].Fire = true;
                             tileMap[col - i, line].bomb = null;
                             tileMap[col - i, line].IsDestoyable = false;
                             tileMap[col - i, line].Occupied = false;
+                            tileMap[col - i, line].GenBonus();
+
                         }
-                        
+                        else if (!tileMap[col - i, line].IsSolid)
+                        {
+                            tileMap[col - i, line].Fire = true;
+
+                        }
+                        else
+                        {
+                           break;
+                        }
                     }
                 }
                 PLeft = false;
@@ -101,17 +112,27 @@ namespace BOMBERMAN.GameObj
             
             if (pRight)
             {
-                for (int i = 0; i < effect; i++)
+                for (int i = 0; i <= effect; i++)
                 {
-                    if(col+i <= 8)
+                    if(col + i <= 8)
                     {
-                        if (tileMap[col + i, line].IsDestoyable || !tileMap[col + i,line].IsSolid)
+                       
+                        if (tileMap[col + i, line].IsDestoyable && tileMap[col + i,line].IsSolid)
                         {
                             tileMap[col + i, line].Fire = true;
                             tileMap[col + i, line].bomb = null;
-                            tileMap[col + i, line].IsDestoyable = false;
+                            tileMap[col + i, line].IsDestoyable = true;
                             tileMap[col + i, line].IsSolid = false;
                             tileMap[col + i, line].Occupied = false;
+                            tileMap[col + i, line].GenBonus();
+                        }
+                        else if(!tileMap[col + i, line].IsSolid)
+                        {
+                            tileMap[col + i, line].Fire = true;
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
                 }
@@ -121,17 +142,26 @@ namespace BOMBERMAN.GameObj
             
             if (pUP)
             {
-                for (int i = 0; i < effect; i++)
+                for (int i = 0; i <= effect; i++)
                 {
                     if(line - i >= 0)
                     {
-                        if (tileMap[col, line - i].IsDestoyable || !tileMap[col, line - i].IsSolid)
+                        if (tileMap[col, line - i].IsDestoyable && tileMap[col,line - i].IsSolid)
                         {
                             tileMap[col, line - i].Fire = true;
                             tileMap[col, line - i].bomb = null;
-                            tileMap[col, line - i].IsDestoyable = false;
+                            tileMap[col, line - i].IsDestoyable = true;
                             tileMap[col, line - i].IsSolid = false;
                             tileMap[col, line - i].Occupied = false;
+                            tileMap[col, line - i].GenBonus();
+                        }
+                        else if(!tileMap[col, line - i].IsSolid)
+                        {
+                            tileMap[col, line - i].Fire = true;
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
                 }
@@ -141,17 +171,26 @@ namespace BOMBERMAN.GameObj
             
             if (pDown)
             {
-                for (int i = 0; i < effect; i++)
+                for (int i = 0; i <= effect; i++)
                 {
                     if(line + i <= 8)
                     {
-                        if (tileMap[col, line + i].IsDestoyable || !tileMap[col, line + i].IsSolid)
+                        if (tileMap[col, line + i].IsDestoyable && tileMap[col,line + i].IsSolid)
                         {
                             tileMap[col, line + i].Fire = true;
                             tileMap[col, line + i].bomb = null;
-                            tileMap[col, line + i].IsDestoyable = false;
+                            tileMap[col, line + i].IsDestoyable = true;
                             tileMap[col, line + i].IsSolid = false;
                             tileMap[col, line + i].Occupied = false;
+                            tileMap[col, line + i].GenBonus();
+                        }
+                        else if (!tileMap[col, line + i].IsSolid)
+                        {
+                            tileMap[col, line + i].Fire = true;
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
                 }

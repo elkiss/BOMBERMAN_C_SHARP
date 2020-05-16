@@ -26,7 +26,7 @@ namespace BOMBERMAN.GameWorlds
         {
             Occupied = false;
             Fire = false;
-            FireTime = 500;          
+            FireTime = 300;          
         }
 
         public Tile()
@@ -57,10 +57,10 @@ namespace BOMBERMAN.GameWorlds
                 //    new Font(FontFamily.GenericSansSerif, 7, FontStyle.Regular),
                 //    new SolidBrush(Color.Black), Source);
                 
-                gr.DrawString("O= " +Occupied +
-                    "S= " +IsSolid+"D= "+IsDestoyable , 
-                    new Font(FontFamily.GenericSansSerif, 7, FontStyle.Regular),
-                    new SolidBrush(Color.Black), Source);
+                //gr.DrawString("O= " +Occupied +
+                //    "S= " +IsSolid+"D= "+IsDestoyable , 
+                //    new Font(FontFamily.GenericSansSerif, 7, FontStyle.Regular),
+                //    new SolidBrush(Color.Black), Source);
             }
 
 
@@ -72,43 +72,44 @@ namespace BOMBERMAN.GameWorlds
         {
             Random nbAlea = new Random();
 
-            
 
+            int line = CasePosition[0];
+            int col = CasePosition[1];
             int nb = nbAlea.Next(1, 500);
 
 
             switch (nb)
             {
                 case int n when n < 30:
-                    bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.LIFE);
+                    bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.LIFE);
                     bonus.LoadSprites(Properties.Resources.B_LIFE);
                     break;
                 case int n when n < 50:
-                    bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.LAUNCH);
+                    bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.LAUNCH);
                     bonus.LoadSprites(Properties.Resources.B_LAUNCH);
                     break;
                 case int n when n < 70:
-                    bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.KICK);
+                    bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.KICK);
                     bonus.LoadSprites(Properties.Resources.B_KICK);
                     break;
                 case int n when n < 90:
-                    bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.D_SPEED);
+                    bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.D_SPEED);
                     bonus.LoadSprites(Properties.Resources.B_DSPEED);
                     break;
                 case int n when n < 180:
-                    bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.EFFECT);
+                    bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.EFFECT);
                     bonus.LoadSprites(Properties.Resources.B_BOMB);
                     break;
                 case int n when n < 250:
-                    bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.SPEED);
+                    bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.SPEED);
                     bonus.LoadSprites(Properties.Resources.B_SPEED);
                     break;
                 case int n when n < 260:
-                    bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.KICK);
+                    bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.KICK);
                     bonus.LoadSprites(Properties.Resources.B_KICK);
                     break;
                 case int n when n < 270:
-                    bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.DISAMORCE);
+                    bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.DISAMORCE);
                     bonus.LoadSprites(Properties.Resources.B_DISM);
                     break;
 

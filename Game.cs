@@ -136,7 +136,7 @@ namespace BOMBERMAN
                 case Player.Direction.RIGHT:
 
                     Rectangle rect = new Rectangle(
-                        player1.Source.X + player1.Vitesse,
+                        player1.Source.X + (player1.Vitesse/2),
                         player1.Source.Y,
                         player1.Source.Width,
                         player1.Source.Height);
@@ -168,7 +168,7 @@ namespace BOMBERMAN
                 case Player.Direction.LEFT:
 
                    rect = new Rectangle(
-                       player1.Source.X-player1.Vitesse,
+                       player1.Source.X-(2*player1.Vitesse/2),
                        player1.Source.Y,
                        player1.Source.Width,
                        player1.Source.Height);
@@ -198,7 +198,7 @@ namespace BOMBERMAN
 
                     rect = new Rectangle(
                        player1.Source.X,
-                       player1.Source.Y + player1.Vitesse,
+                       player1.Source.Y + (player1.Vitesse/2),
                        player1.Source.Width,
                        player1.Source.Height);
 
@@ -236,7 +236,7 @@ namespace BOMBERMAN
 
                     rect = new Rectangle(
                        player1.Source.X,
-                       player1.Source.Y-player1.Vitesse,
+                       player1.Source.Y-(player1.Vitesse/2),
                        player1.Source.Width,
                        player1.Source.Height);
 
@@ -341,27 +341,23 @@ namespace BOMBERMAN
                         map.MapMatrice[i, j].Occupied = false;
                         if (CollisionBetweenRectagle(map.Player1.Source, map.MapMatrice[i,j].Source))
                         {
-                            if(!map.Player1.Bonusplayer.Contains (Bonus.Bonustype.ARMOR))
-                            {
+                           
                                 map.Player1.IsAlive = false;
                                 //map.MapMatrice[i, j].Fire = false;
                                 //load bood sprite
-                            }
+
                         }
                         else if(CollisionBetweenRectagle(map.Player2.Source, map.MapMatrice[i, j].Source))
                         {
-                            if (!map.Player2.Bonusplayer.Contains(Bonus.Bonustype.ARMOR))
-                            {
+                            
                                 map.Player2.IsAlive = false;
                                 //load bood sprite
-                            }
                         }
                         else if(map.MapMatrice[i,j].FireTime <= 0)
                         {
                             map.MapMatrice[i, j].FireTime = 300;// à revoire avec temp timer
                             map.MapMatrice[i, j].Fire = false;
                             map.MapMatrice[i, j].IndexFrame = 0;
-                            map.MapMatrice[i, j].GenBonus();
                         }
                         else
                         {
@@ -375,6 +371,156 @@ namespace BOMBERMAN
         
         public void BonusLogic()
         {
+            int colp1 = map.Player1.CasePosition[1], linep1 = map.Player1.CasePosition[0];
+            int colp2 = map.Player2.CasePosition[1], linep2 = map.Player2.CasePosition[0];
+
+            if(map.MapMatrice[colp1,linep1].bonus != null)
+            {
+                switch (map.MapMatrice[colp1,linep1].bonus.BonusTtype)
+                {
+                    case Bonus.Bonustype.BOMBE:
+                        if(map.Player1.NbBombe < 10)
+                        {
+                            map.Player1.NbBombe++;
+                            map.MapMatrice[colp1, linep1].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.SPEED:
+                        if(map.Player1.Vitesse<30)
+                        {
+                            map.Player1.Vitesse++;
+                            map.MapMatrice[colp1, linep1].bonus = null;
+                        } 
+                        break;
+                    case Bonus.Bonustype.D_SPEED:
+                        if(map.Player1.Vitesse>1)
+                        {
+                            map.Player1.Vitesse--;
+                            map.MapMatrice[colp1, linep1].bonus = null;
+                        }
+                       break;
+                    case Bonus.Bonustype.DISAMORCE:
+                        if(map.Player1.Bonusplayer != Bonus.Bonustype.NONE)
+                        {
+                            map.Player1.Bonusplayer = Bonus.Bonustype.DISAMORCE;
+                            map.MapMatrice[colp1, linep1].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.LIFE:
+                        if (map.Player1.Life < 5)
+                        {
+                            map.Player1.Life++;
+                            map.MapMatrice[colp1, linep1].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.EFFECT:
+                        if (map.Player1.BombeEffect < 9)
+                        {
+                            map.Player1.BombeEffect++;
+                            map.MapMatrice[colp1, linep1].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.D_EFFET:
+                        if (map.Player1.BombeEffect > 2)
+                        {
+                            map.Player1.BombeEffect--;
+                            map.MapMatrice[colp1, linep1].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.KICK:
+                        if (map.Player1.Bonusplayer != Bonus.Bonustype.NONE)
+                        {
+                            map.Player1.Bonusplayer = Bonus.Bonustype.KICK;
+                            map.MapMatrice[colp1, linep1].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.LAUNCH:
+                        if (map.Player1.Bonusplayer != Bonus.Bonustype.NONE)
+                        {
+                            map.Player1.Bonusplayer = Bonus.Bonustype.LAUNCH;
+                            map.MapMatrice[colp1, linep1].bonus = null;
+                        }
+                       break;
+                    default:
+                        break;
+                }
+                
+            } 
+            
+            
+            if(map.MapMatrice[colp2,linep2].bonus != null)
+            {
+                switch (map.MapMatrice[colp2,linep2].bonus.BonusTtype)
+                {
+                    case Bonus.Bonustype.BOMBE:
+                        if (map.Player2.NbBombe < 10)
+                        {
+                            map.Player2.NbBombe++;
+                            map.MapMatrice[colp1, linep1].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.SPEED:
+                        if(map.Player2.Vitesse<30)
+                        {
+                            map.Player2.Vitesse++;
+                            map.MapMatrice[colp2, linep2].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.D_SPEED:
+                        if(map.Player2.Vitesse > 1)
+                        {
+                            map.Player2.Vitesse--;
+                            map.MapMatrice[colp2, linep2].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.DISAMORCE:
+                        if(map.Player2.Bonusplayer != Bonus.Bonustype.NONE)
+                        {
+                            map.Player2.Bonusplayer = Bonus.Bonustype.DISAMORCE;
+                            map.MapMatrice[colp2, linep2].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.LIFE:
+                        if (map.Player2.Life < 5)
+                        {
+                            map.Player2.Life++;
+                            map.MapMatrice[colp2, linep2].bonus = null;
+                        }
+
+                        break;
+                    case Bonus.Bonustype.EFFECT:
+                        if (map.Player2.BombeEffect < 9)
+                        {
+                            map.Player2.BombeEffect++;
+                            map.MapMatrice[colp2, linep2].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.D_EFFET:
+                        if (map.Player2.BombeEffect > 2)
+                        {
+                            map.Player2.BombeEffect--;
+                            map.MapMatrice[colp2, linep2].bonus = null;
+                        }
+                        map.Player2.BombeEffect--;
+                        break;
+                    case Bonus.Bonustype.KICK:
+                        if (map.Player2.Bonusplayer != Bonus.Bonustype.NONE)
+                        {
+                            map.Player2.Bonusplayer = Bonus.Bonustype.KICK;
+                            map.MapMatrice[colp2, linep2].bonus = null;
+                        }
+                        break;
+                    case Bonus.Bonustype.LAUNCH:
+                        if (map.Player2.Bonusplayer != Bonus.Bonustype.NONE)
+                        {
+                            map.Player2.Bonusplayer = Bonus.Bonustype.LAUNCH;
+                            map.MapMatrice[colp2, linep2].bonus = null;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
 
         }
         

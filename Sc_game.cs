@@ -79,6 +79,7 @@ namespace BOMBERMAN
 
             game.Interraction();
             game.BombeLogic();
+            game.BonusLogic();
             game.PlayersLogic();
             game.Map.RefreshMap(gr);
             game.DrawMap(gr);

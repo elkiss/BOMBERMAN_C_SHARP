@@ -24,6 +24,8 @@ namespace BOMBERMAN.GameObj
 
         private int nbBombe;
 
+        private int bonusMax;
+
         private int bombeEffect;
 
         public enum Character
@@ -45,7 +47,7 @@ namespace BOMBERMAN.GameObj
             NONE
         }
 
-        public List<Bonus.Bonustype> Bonusplayer;
+        public Bonus.Bonustype Bonusplayer;
 
         public Direction mvnttDirection;
 
@@ -58,6 +60,7 @@ namespace BOMBERMAN.GameObj
         public int NbBombe { get => nbBombe; set => nbBombe = value; }
         internal Character ChPlayer { get => chPlayer; set => chPlayer = value; }
         public int BombeEffect { get => bombeEffect; set => bombeEffect = value; }
+        public int BonusMax { get => bonusMax; set => bonusMax = value; }
 
         #endregion
 
@@ -77,10 +80,11 @@ namespace BOMBERMAN.GameObj
             IsAlive = true;
             PlayerName = pName;
             nbBombe = 1;
-            Bonusplayer = new List<Bonus.Bonustype>();
+            Bonusplayer = Bonus.Bonustype.NONE;
             chPlayer = Character.BLACK;
             Pencil.Color = Color.Transparent;
             bombeEffect = 1;
+            bonusMax = 1;
         }
         
         public Player(string pName,int[] casePos,int playerH,int playerW,int frameMax,int life)
@@ -99,9 +103,10 @@ namespace BOMBERMAN.GameObj
             IsAlive = true;
             nbBombe = 1;
             chPlayer = Character.BLACK;
-            Bonusplayer = new List<Bonus.Bonustype>();
+            Bonusplayer = Bonus.Bonustype.NONE;
             Pencil.Color = Color.Transparent;
             bombeEffect = 1;
+            bonusMax = 1;
             //Bonusplayer = new List<Bonus>();
         }
 

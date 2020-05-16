@@ -66,7 +66,7 @@ namespace BOMBERMAN.GameWorlds
                             {
                                 mapMatrice[i, j] = new Tile(new Point(i * tilesSize+25, j * tilesSize+25), tilesSize);
                                 mapMatrice[i, j].UnloadSprite();
-                                mapMatrice[i, j].IsDestoyable = false;
+                                mapMatrice[i, j].IsDestoyable = true;
                                 mapMatrice[i, j].IsSolid = false;
                                 mapMatrice[i, j].Occupied = false;
                                 mapMatrice[i, j].CasePosition = new int[] { i, j };
@@ -87,7 +87,7 @@ namespace BOMBERMAN.GameWorlds
                         {
                             mapMatrice[i, j] = new Tile(new Point(i * tilesSize+25, j * tilesSize+25), tilesSize);
                             mapMatrice[i, j].UnloadSprite();
-                            mapMatrice[i, j].IsDestoyable = false;
+                            mapMatrice[i, j].IsDestoyable = true;
                             mapMatrice[i, j].IsSolid = false;
                             mapMatrice[i, j].Occupied = false;
                             mapMatrice[i, j].CasePosition = new int[] { i, j };
@@ -124,9 +124,11 @@ namespace BOMBERMAN.GameWorlds
                     {
                         mapMatrice[i, j].UnloadSprite();
                     }
-                    else if(mapMatrice[i,j].bonus != null)
+
+                    if(mapMatrice[i,j].bonus != null && !mapMatrice[i,j].Fire)
                     {
-                        mapMatrice[i, j].DrawObject(gr);
+                        mapMatrice[i, j].UnloadSprite();
+                        mapMatrice[i, j].bonus.DrawObject(gr);
                     }
 
                 }
@@ -146,11 +148,11 @@ namespace BOMBERMAN.GameWorlds
                 mapMatrice[line, i].UnloadSprite();
                 mapMatrice[line, i].IsSolid = false;
                 mapMatrice[line, i].Occupied = false;
-                mapMatrice[line, i].IsDestoyable = false;
+                mapMatrice[line, i].IsDestoyable = true;
                 mapMatrice[i, col].UnloadSprite();
                 mapMatrice[i, col].IsSolid = false;
                 mapMatrice[i, col].Occupied = false;
-                mapMatrice[i, col].IsDestoyable = false;
+                mapMatrice[i, col].IsDestoyable = true;
             }
 
             for (int i = 4; i > 0 ; i--)
@@ -158,11 +160,11 @@ namespace BOMBERMAN.GameWorlds
                 mapMatrice[8, i].UnloadSprite();
                 mapMatrice[8, i].IsSolid = false;
                 mapMatrice[8, i].Occupied = false;
-                mapMatrice[8, i].IsDestoyable = false;
+                mapMatrice[8, i].IsDestoyable = true;
                 mapMatrice[i,8].UnloadSprite();
                 mapMatrice[i, 8].IsSolid = false;
                 mapMatrice[i, 8].Occupied = false;
-                mapMatrice[i, 8].IsDestoyable = false;
+                mapMatrice[i, 8].IsDestoyable = true;
 
             }
             player1.DrawObject(gr);
