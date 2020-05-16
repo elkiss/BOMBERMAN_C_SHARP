@@ -17,8 +17,6 @@ namespace BOMBERMAN.GameObj
 
         private int nbBombe;
 
-        private int bonusMax;
-
         private int bombeEffect;
 
         public enum Character
@@ -33,14 +31,11 @@ namespace BOMBERMAN.GameObj
 
         public Bonus.Bonustype Bonusplayer;
 
-        private IDictionary<Direction, Image> playerSprites;
-
         #region Accessors
 
         public int NbBombe { get => nbBombe; set => nbBombe = value; }
         internal Character ChPlayer { get => chPlayer; set => chPlayer = value; }
         public int BombeEffect { get => bombeEffect; set => bombeEffect = value; }
-        public int BonusMax { get => bonusMax; set => bonusMax = value; }
 
         #endregion
 
@@ -48,27 +43,27 @@ namespace BOMBERMAN.GameObj
             :base(playerPos,playerH,playerW,frameMax,life)
         {
             Vitesse = 10;
-            playerSprites = new Dictionary<Direction, Image>
+            PlayerSprites = new Dictionary<Direction, Image>
             {
                 { Direction.UP, Properties.Resources.WB_UP },
                 { Direction.DOWN, Properties.Resources.WB_DOWN },
                 { Direction.RIGHT, Properties.Resources.WB_RIGHT },
                 { Direction.LEFT, Properties.Resources.WB_LEFT }
             };
+
             PlayerName = pName;
             nbBombe = 1;
             Bonusplayer = Bonus.Bonustype.NONE;
             chPlayer = Character.BLACK;
             Pencil.Color = Color.Transparent;
             bombeEffect = 1;
-            bonusMax = 1;
         }
         
         public Player(string pName,int[] casePos,int playerH,int playerW,int frameMax,int life)
             :base(casePos,playerH,playerW,frameMax,life)
         {
             Vitesse = 10;
-            playerSprites = new Dictionary<Direction, Image>
+            PlayerSprites = new Dictionary<Direction, Image>
             {
                 { Direction.UP, Properties.Resources.WB_UP },
                 { Direction.DOWN, Properties.Resources.WB_DOWN },
@@ -80,7 +75,6 @@ namespace BOMBERMAN.GameObj
             Bonusplayer = Bonus.Bonustype.NONE;
             Pencil.Color = Color.Transparent;
             bombeEffect = 1;
-            bonusMax = 1;
         }
 
 
@@ -93,11 +87,10 @@ namespace BOMBERMAN.GameObj
 
             if(nbBombe>0)
             {
-                if(!tileMap[col,line].Occupied)
+                if(tileMap[col,line].IsFree)
                 {
                     tileMap[col, line].bomb = new Bombe(new int[] { line, col }, 60,59,16,ChPlayer);
-                    tileMap[col, line].bomb.actived = true;
-                    tileMap[col, line].Occupied = true;
+                    tileMap[col, line].IsFree = false;
                     tileMap[col, line].bomb.LoadSprites(Properties.Resources.Bombe);
                     tileMap[col, line].bomb.FrameMax = 16;
                     tileMap[col, line].bomb.FrameSpeed = 50;

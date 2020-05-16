@@ -35,7 +35,7 @@ namespace BOMBERMAN.GameObj
 
         public Direction mvnttDirection;
 
-        private IDictionary<Direction, Image> playerSprites;
+        private IDictionary<Direction, Image> playerSprites;//a modifier
 
         #region Accessors
 
@@ -57,13 +57,7 @@ namespace BOMBERMAN.GameObj
         public GameCharacter(int[] casePos, int playerH, int playerW, int frameMax, int life)
             : base(casePos, playerH, playerW, frameMax)
         {
-            playerSprites = new Dictionary<Direction, Image>
-            {
-                { Direction.UP, Properties.Resources.WB_UP },
-                { Direction.DOWN, Properties.Resources.WB_DOWN },
-                { Direction.RIGHT, Properties.Resources.WB_RIGHT },
-                { Direction.LEFT, Properties.Resources.WB_LEFT }
-            };
+
             mvnttDirection = Direction.NONE;
             this.Life = life;
             IsAlive = true;
@@ -74,7 +68,6 @@ namespace BOMBERMAN.GameObj
             CasePosition[1] = (((Source.X + Source.Width) - 35) / tileSize); //colonne
             CasePosition[0] = (((Source.Y + Source.Height) - 35) / tileSize);//ligne
 
-            //CasePosition[1] = Source.Y/ tileSize;
         }
 
         public void MoveToDirection()

@@ -97,7 +97,7 @@ namespace BOMBERMAN
                     break;
                 case Keys.Z:
                     map.Player1.IndexFrame = 0;
-                    map.Player1.mvnttDirection = Player.Direction.NONE; Z:
+                    map.Player1.mvnttDirection = Player.Direction.NONE;
                     break;
                 case Keys.W:
                     map.Player1.IndexFrame = 0;
@@ -149,13 +149,13 @@ namespace BOMBERMAN
 
                     if (col < 8)
                     {
-                        if (tileMap[col + 1, line].IsSolid)
+                        if (!tileMap[col + 1, line].IsFree)
                             if (CollisionBetweenRectagle(rect, tileMap[col + 1, line].Source))
                                 return true;
-
+                        
                         if (line > 0)
                             if (CollisionBetweenRectagle(rect, tileMap[col + 1, line - 1].Source) && CollisionBetweenRectagle(rect, tileMap[col + 1, line].Source))
-                                if (tileMap[col + 1, line - 1].IsSolid || tileMap[col + 1, line].IsSolid)
+                                if (!tileMap[col + 1, line - 1].IsFree || !tileMap[col + 1, line].IsFree)
                                     return true;
 
                         if (tileMap[col + 1, line].Occupied && CollisionBetweenRectagle(rect,tileMap[col+1,line].Source))
@@ -181,14 +181,14 @@ namespace BOMBERMAN
                     if (col <= 0)
                         return false;
 
-                    if (tileMap[col - 1, line].Occupied && CollisionBetweenRectagle(rect, tileMap[col - 1, line].Source))
+                    if (!tileMap[col - 1, line].IsFree && CollisionBetweenRectagle(rect, tileMap[col - 1, line].Source))
                         return true;
 
                     if (line > 0)
-                        if (CollisionBetweenRectagle(rect, tileMap[col-1, line - 1].Source) && !tileMap[col -1, line].IsSolid)
+                        if (CollisionBetweenRectagle(rect, tileMap[col-1, line - 1].Source) && !tileMap[col -1, line].IsFree)
                             return true;
 
-                    if (tileMap[col-1, line].IsSolid)
+                    if (!tileMap[col-1, line].IsFree)
                         if (CollisionBetweenRectagle(rect, tileMap[col-1, line].Source))
                             return true;
 
@@ -215,16 +215,16 @@ namespace BOMBERMAN
                             return true;
 
                         if (col <= 0)
-                            if (CollisionBetweenRectagle(rect, tileMap[col, line + 1].Source) && tileMap[col, line + 1].IsSolid)
+                            if (CollisionBetweenRectagle(rect, tileMap[col, line + 1].Source) && !tileMap[col, line + 1].IsFree)
                                 return true;
 
-                        if (tileMap[col, line + 1].IsSolid)
+                        if (!tileMap[col, line + 1].IsFree)
                             if (CollisionBetweenRectagle(rect, tileMap[col, line + 1].Source))
                                 return true;
 
                         if (col > 0)
                             if (CollisionBetweenRectagle(rect, tileMap[col - 1, line + 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line + 1].Source))
-                                if (tileMap[col - 1, line + 1].IsSolid || tileMap[col, line + 1].IsSolid)
+                                if (!tileMap[col - 1, line + 1].IsFree || !tileMap[col, line + 1].IsFree)
                                     return true;
 
                     }
@@ -247,12 +247,12 @@ namespace BOMBERMAN
 
                     if (line > 0)
                     {
-                        if (tileMap[col, line - 1].IsSolid)
+                        if (!tileMap[col, line - 1].IsFree)
                             if (CollisionBetweenRectagle(rect, tileMap[col, line - 1].Source))
                                 return true;
                         if(col > 0)
                             if (CollisionBetweenRectagle(rect, tileMap[col - 1, line - 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line - 1].Source))
-                                if (tileMap[col - 1, line - 1].IsSolid || tileMap[col, line - 1].IsSolid)
+                                if (!tileMap[col - 1, line - 1].IsFree || !tileMap[col, line - 1].IsFree)
                                     return true;
 
                         if (tileMap[col, line - 1].Occupied && CollisionBetweenRectagle(rect, tileMap[col, line -1].Source))

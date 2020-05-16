@@ -29,11 +29,17 @@ namespace BOMBERMAN.GameWorlds
         public World()
         {
             mapMatrice = new Tile[9, 9];
-            player1 = new Player("teste", new int[] { 0, 0 }, 30,40,3,0);
-            player1.ChPlayer = Player.Character.BLACK;
+
+            player1 = new Player("teste", new int[] { 0, 0 }, 30, 40, 3, 0)
+            {
+                ChPlayer = Player.Character.BLACK
+            };
             player1.LoadSprites(Properties.Resources.WB_DOWN);
-            player2 = new Player("teste", new int[]{ 8, 8 }, 30,40,3,0);
-            player2.ChPlayer = Player.Character.PINK;
+
+            player2 = new Player("teste", new int[] { 8, 8 }, 30, 40, 3, 0)
+            {
+                ChPlayer = Player.Character.PINK
+            };
             player2.LoadSprites(Properties.Resources.WB_UP);
         }
 
@@ -53,8 +59,8 @@ namespace BOMBERMAN.GameWorlds
                         mapMatrice[i, j].CasePosition =new int[]{i,j};
                         mapMatrice[i, j].LoadSprites(tileNotDest);
                         mapMatrice[i, j].IsDestoyable = false;
-                        mapMatrice[i, j].IsSolid = true;
-                        mapMatrice[i, j].Occupied = true;
+                        mapMatrice[i, j].IsFree = false;
+                        mapMatrice[i, j].Occupied = true;//?
 
                     }
                     else
@@ -66,9 +72,9 @@ namespace BOMBERMAN.GameWorlds
                             {
                                 mapMatrice[i, j] = new Tile(new Point(i * tilesSize+25, j * tilesSize+25), tilesSize);
                                 mapMatrice[i, j].UnloadSprite();
-                                mapMatrice[i, j].IsDestoyable = true;
-                                mapMatrice[i, j].IsSolid = false;
-                                mapMatrice[i, j].Occupied = false;
+                                mapMatrice[i, j].IsDestoyable = false;
+                                mapMatrice[i, j].IsFree = true;
+                                mapMatrice[i, j].Occupied = false;//?
                                 mapMatrice[i, j].CasePosition = new int[] { i, j };
                             }
                             else
@@ -76,8 +82,8 @@ namespace BOMBERMAN.GameWorlds
                                 mapMatrice[i, j] = new Tile(new Point(i * tilesSize+25, j * tilesSize+25), tilesSize);
                                 mapMatrice[i, j].LoadSprites(tileDest);
                                 mapMatrice[i, j].IsDestoyable = true;
-                                mapMatrice[i, j].IsSolid = true;
-                                mapMatrice[i, j].Occupied = true;
+                                mapMatrice[i, j].IsFree = false;
+                                mapMatrice[i, j].Occupied = true;//?
                                 mapMatrice[i, j].CasePosition = new int[] { i, j };
                                 dTile--;
                             }
@@ -87,9 +93,9 @@ namespace BOMBERMAN.GameWorlds
                         {
                             mapMatrice[i, j] = new Tile(new Point(i * tilesSize+25, j * tilesSize+25), tilesSize);
                             mapMatrice[i, j].UnloadSprite();
-                            mapMatrice[i, j].IsDestoyable = true;
-                            mapMatrice[i, j].IsSolid = false;
-                            mapMatrice[i, j].Occupied = false;
+                            mapMatrice[i, j].IsDestoyable = false;
+                            mapMatrice[i, j].IsFree = true;
+                            mapMatrice[i, j].Occupied = false;//?
                             mapMatrice[i, j].CasePosition = new int[] { i, j };
                         }
                     }
@@ -120,14 +126,12 @@ namespace BOMBERMAN.GameWorlds
                     {
                         mapMatrice[i, j].LoadSprites(Properties.Resources.FIRE);
                     }
-                    else if(!mapMatrice[i,j].IsSolid)
+                    else if(mapMatrice[i,j].IsFree)
                     {
-                        mapMatrice[i, j].UnloadSprite();
+                        //mapMatrice[i, j].UnloadSprite();
                     }
-
-                    if(mapMatrice[i,j].bonus != null && !mapMatrice[i,j].Fire)
+                    else if(mapMatrice[i, j].bonus != null)
                     {
-                        mapMatrice[i, j].UnloadSprite();
                         mapMatrice[i, j].bonus.DrawObject(gr);
                     }
 
@@ -146,25 +150,25 @@ namespace BOMBERMAN.GameWorlds
             for (int i = 0; i < 4; i++)
             {
                 mapMatrice[line, i].UnloadSprite();
-                mapMatrice[line, i].IsSolid = false;
+                mapMatrice[line, i].IsFree = true;
                 mapMatrice[line, i].Occupied = false;
-                mapMatrice[line, i].IsDestoyable = true;
+                mapMatrice[line, i].IsDestoyable = false;
                 mapMatrice[i, col].UnloadSprite();
-                mapMatrice[i, col].IsSolid = false;
+                mapMatrice[i, col].IsFree = true;
                 mapMatrice[i, col].Occupied = false;
-                mapMatrice[i, col].IsDestoyable = true;
+                mapMatrice[i, col].IsDestoyable = false;
             }
 
             for (int i = 4; i > 0 ; i--)
             {
                 mapMatrice[8, i].UnloadSprite();
-                mapMatrice[8, i].IsSolid = false;
+                mapMatrice[8, i].IsFree = true;
                 mapMatrice[8, i].Occupied = false;
-                mapMatrice[8, i].IsDestoyable = true;
+                mapMatrice[8, i].IsDestoyable = false;
                 mapMatrice[i,8].UnloadSprite();
-                mapMatrice[i, 8].IsSolid = false;
+                mapMatrice[i, 8].IsFree = true;
                 mapMatrice[i, 8].Occupied = false;
-                mapMatrice[i, 8].IsDestoyable = true;
+                mapMatrice[i, 8].IsDestoyable = false;
 
             }
             player1.DrawObject(gr);

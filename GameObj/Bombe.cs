@@ -18,9 +18,9 @@ namespace BOMBERMAN.GameObj
 
         public bool Disamorced { get; set; }
 
-        public bool actived { get; set; }
 
         public int DetonTime { get => detonTime; set => detonTime = value; }
+        internal Player.Character Who { get => who; set => who = value; }
 
         private Player.Character who;
 
@@ -29,10 +29,9 @@ namespace BOMBERMAN.GameObj
         {
             IsExplosed = false;
             Disamorced = false;
-            actived = true;
             detonTime = 300;
             this.who = who;
-            effect = 2;
+            effect = 1;
             Pencil.Color = Color.Transparent;
             Pencil.Width = 5;
       
@@ -82,126 +81,121 @@ namespace BOMBERMAN.GameObj
 
             if (PLeft)
             {
-                for (int i = 0; i <= effect; i++)
+                for (int i = 1; i <= effect; i++)
                 {
-                    if(col-i >= 0)
+                    if(col - i >= 0)
                     {
-                        
-                        if(tileMap[col - i,line].IsDestoyable && tileMap[col - i,line].IsSolid)
+
+                        if(!tileMap[col - i,line].IsDestoyable && !tileMap[col - i,line].IsFree)
+                        {
+                            break;
+                        }
+                        if(tileMap[col - i,line].IsDestoyable)
                         {
                             tileMap[col - i, line].Fire = true;
                             tileMap[col - i, line].bomb = null;
                             tileMap[col - i, line].IsDestoyable = false;
-                            tileMap[col - i, line].Occupied = false;
+                            tileMap[col - i, line].IsFree = true;
+                            tileMap[col - i, line].Occupied = false;//?
                             tileMap[col - i, line].GenBonus();
 
                         }
-                        else if (!tileMap[col - i, line].IsSolid)
+                        else if (tileMap[col - i, line].IsFree)
                         {
                             tileMap[col - i, line].Fire = true;
-
-                        }
-                        else
-                        {
-                           break;
                         }
                     }
                 }
-                PLeft = false;
             } 
             
             if (pRight)
             {
-                for (int i = 0; i <= effect; i++)
+                for (int i = 1; i <= effect; i++)
                 {
                     if(col + i <= 8)
                     {
-                       
-                        if (tileMap[col + i, line].IsDestoyable && tileMap[col + i,line].IsSolid)
+                        if(!tileMap[col + i,line].IsDestoyable && !tileMap[col + i, line].IsFree)
+                        {
+                            break;
+                        }
+                        if (tileMap[col + i, line].IsDestoyable)
                         {
                             tileMap[col + i, line].Fire = true;
                             tileMap[col + i, line].bomb = null;
-                            tileMap[col + i, line].IsDestoyable = true;
-                            tileMap[col + i, line].IsSolid = false;
-                            tileMap[col + i, line].Occupied = false;
+                            tileMap[col + i, line].IsDestoyable = false;
+                            tileMap[col + i, line].IsFree = true;
+                            tileMap[col + i, line].Occupied = false;//?
                             tileMap[col + i, line].GenBonus();
                         }
-                        else if(!tileMap[col + i, line].IsSolid)
+                        else if(tileMap[col + i, line].IsFree)
                         {
                             tileMap[col + i, line].Fire = true;
-                        }
-                        else
-                        {
-                            break;
                         }
                     }
                 }
 
-                pRight = false;
             }
             
             if (pUP)
             {
-                for (int i = 0; i <= effect; i++)
+                for (int i = 1; i <= effect; i++)
                 {
                     if(line - i >= 0)
                     {
-                        if (tileMap[col, line - i].IsDestoyable && tileMap[col,line - i].IsSolid)
+                        if(!tileMap[col,line - i].IsDestoyable && !tileMap[col, line - i].IsFree)
+                        {
+                            break;
+                        }
+                        if (tileMap[col, line - i].IsDestoyable)
                         {
                             tileMap[col, line - i].Fire = true;
                             tileMap[col, line - i].bomb = null;
-                            tileMap[col, line - i].IsDestoyable = true;
-                            tileMap[col, line - i].IsSolid = false;
-                            tileMap[col, line - i].Occupied = false;
+                            tileMap[col, line - i].IsDestoyable = false;
+                            tileMap[col, line - i].IsFree = true;
+                            tileMap[col, line - i].Occupied = false;//?
                             tileMap[col, line - i].GenBonus();
                         }
-                        else if(!tileMap[col, line - i].IsSolid)
+                        else if(tileMap[col, line - i].IsFree)
                         {
                             tileMap[col, line - i].Fire = true;
-                        }
-                        else
-                        {
-                            break;
+
                         }
                     }
                 }
 
-                pUP = false;
             }
             
             if (pDown)
             {
-                for (int i = 0; i <= effect; i++)
+                for (int i = 1; i <= effect; i++)
                 {
                     if(line + i <= 8)
                     {
-                        if (tileMap[col, line + i].IsDestoyable && tileMap[col,line + i].IsSolid)
-                        {
-                            tileMap[col, line + i].Fire = true;
-                            tileMap[col, line + i].bomb = null;
-                            tileMap[col, line + i].IsDestoyable = true;
-                            tileMap[col, line + i].IsSolid = false;
-                            tileMap[col, line + i].Occupied = false;
-                            tileMap[col, line + i].GenBonus();
-                        }
-                        else if (!tileMap[col, line + i].IsSolid)
-                        {
-                            tileMap[col, line + i].Fire = true;
-                        }
-                        else
+                        if(!tileMap[col, line + i].IsDestoyable && !tileMap[col, line + i].IsFree)
                         {
                             break;
                         }
+                        if (tileMap[col, line + i].IsDestoyable)
+                        {
+                            tileMap[col, line + i].Fire = true;
+                            tileMap[col, line + i].bomb = null;
+                            tileMap[col, line + i].IsDestoyable = false;
+                            tileMap[col, line + i].IsFree = true;
+                            tileMap[col, line + i].Occupied = false;//?
+                            tileMap[col, line + i].GenBonus();
+                        }
+                        else if (tileMap[col, line + i].IsFree)
+                        {
+                            tileMap[col, line + i].Fire = true;
+                        }
                     }
                 }
-                pDown = false;
             }
 
 
             tileMap[col, line].bomb = null;
-            
-            
-
+            tileMap[col, line].IsFree = true;
+            tileMap[col, line].Fire = true;
         }
         #region IDisposable Support
         private bool disposedValue = false; // Pour détecter les appels redondants
