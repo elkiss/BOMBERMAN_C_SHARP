@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using BOMBERMAN.GameObj;
-using System.range
 
 namespace BOMBERMAN.GameWorlds
 {
@@ -75,39 +74,40 @@ namespace BOMBERMAN.GameWorlds
 
             
 
-            int nb = nbAlea.Next(1, 100);
+            int nb = nbAlea.Next(1, 500);
+
 
             switch (nb)
             {
-                case 1...10:
+                case int n when n < 30:
                     bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.LIFE);
                     bonus.LoadSprites(Properties.Resources.B_LIFE);
                     break;
-                case 10 - 30:
+                case int n when n < 50:
                     bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.LAUNCH);
                     bonus.LoadSprites(Properties.Resources.B_LAUNCH);
                     break;
-                case 30 - 40:
+                case int n when n < 70:
                     bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.KICK);
                     bonus.LoadSprites(Properties.Resources.B_KICK);
                     break;
-                case 40 - 70:
+                case int n when n < 90:
                     bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.D_SPEED);
                     bonus.LoadSprites(Properties.Resources.B_DSPEED);
                     break;
-                case 70 - 110:
+                case int n when n < 180:
                     bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.EFFECT);
                     bonus.LoadSprites(Properties.Resources.B_BOMB);
                     break;
-                case 120 - 180:
+                case int n when n < 250:
                     bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.SPEED);
                     bonus.LoadSprites(Properties.Resources.B_SPEED);
                     break;
-                case 190 - 240:
+                case int n when n < 260:
                     bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.KICK);
                     bonus.LoadSprites(Properties.Resources.B_KICK);
                     break;
-                case 250 - 350:
+                case int n when n < 270:
                     bonus = new Bonus(CasePosition, 44, 44, 1,Bonus.Bonustype.DISAMORCE);
                     bonus.LoadSprites(Properties.Resources.B_DISM);
                     break;

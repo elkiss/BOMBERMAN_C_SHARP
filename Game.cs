@@ -361,6 +361,7 @@ namespace BOMBERMAN
                             map.MapMatrice[i, j].FireTime = 300;// à revoire avec temp timer
                             map.MapMatrice[i, j].Fire = false;
                             map.MapMatrice[i, j].IndexFrame = 0;
+                            map.MapMatrice[i, j].GenBonus();
                         }
                         else
                         {

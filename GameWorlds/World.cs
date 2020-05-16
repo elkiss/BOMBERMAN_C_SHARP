@@ -41,8 +41,8 @@ namespace BOMBERMAN.GameWorlds
         public void CreateTiles(Image tileDest, Image tileNotDest,int tilesSize)
         {
             Random nbalea = new Random();
-            int t = 10;
-            int dTile = 4;
+            int t;
+            int dTile = 20;
             for (int i = 0; i < 9; i++)
             {
                 for (int j = 0; j < 9; j++)
@@ -123,6 +123,10 @@ namespace BOMBERMAN.GameWorlds
                     else if(!mapMatrice[i,j].IsSolid)
                     {
                         mapMatrice[i, j].UnloadSprite();
+                    }
+                    else if(mapMatrice[i,j].bonus != null)
+                    {
+                        mapMatrice[i, j].DrawObject(gr);
                     }
 
                 }
