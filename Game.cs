@@ -522,19 +522,7 @@ namespace BOMBERMAN
                 }
             }
 
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        }   
         
         //ftn test
         public string NextCase(Keys touch)

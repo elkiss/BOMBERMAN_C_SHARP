@@ -12,15 +12,8 @@ using System.Windows.Forms;
 
 namespace BOMBERMAN.GameObj
 {
-    class Player:GameObjets
+    class Player:GameCharacter
     {
-        private int vitesse;
-
-        public string PlayerName { get; set; }
-
-        public int Life { get; set; }
-
-        public bool IsAlive { get; set; }
 
         private int nbBombe;
 
@@ -38,25 +31,12 @@ namespace BOMBERMAN.GameObj
 
         private Character chPlayer;
 
-        public enum Direction
-        {
-            RIGHT,
-            LEFT,
-            UP,
-            DOWN,
-            NONE
-        }
-
         public Bonus.Bonustype Bonusplayer;
-
-        public Direction mvnttDirection;
 
         private IDictionary<Direction, Image> playerSprites;
 
         #region Accessors
 
-        public int Vitesse { get => vitesse; set => vitesse = value; }
-        internal IDictionary<Direction, Image> PlayerSprites { get => playerSprites; set => playerSprites = value; }
         public int NbBombe { get => nbBombe; set => nbBombe = value; }
         internal Character ChPlayer { get => chPlayer; set => chPlayer = value; }
         public int BombeEffect { get => bombeEffect; set => bombeEffect = value; }
@@ -65,9 +45,9 @@ namespace BOMBERMAN.GameObj
         #endregion
 
         public Player(string pName,Point playerPos,int playerH,int playerW,int frameMax,int life)
-            :base(playerPos,playerH,playerW,frameMax)
+            :base(playerPos,playerH,playerW,frameMax,life)
         {
-            vitesse = 10;
+            Vitesse = 10;
             playerSprites = new Dictionary<Direction, Image>
             {
                 { Direction.UP, Properties.Resources.WB_UP },
@@ -75,9 +55,6 @@ namespace BOMBERMAN.GameObj
                 { Direction.RIGHT, Properties.Resources.WB_RIGHT },
                 { Direction.LEFT, Properties.Resources.WB_LEFT }
             };
-            mvnttDirection = Direction.NONE;
-            this.Life = life;
-            IsAlive = true;
             PlayerName = pName;
             nbBombe = 1;
             Bonusplayer = Bonus.Bonustype.NONE;
@@ -88,9 +65,9 @@ namespace BOMBERMAN.GameObj
         }
         
         public Player(string pName,int[] casePos,int playerH,int playerW,int frameMax,int life)
-            :base(casePos,playerH,playerW,frameMax)
+            :base(casePos,playerH,playerW,frameMax,life)
         {
-            vitesse = 10;
+            Vitesse = 10;
             playerSprites = new Dictionary<Direction, Image>
             {
                 { Direction.UP, Properties.Resources.WB_UP },
@@ -98,67 +75,12 @@ namespace BOMBERMAN.GameObj
                 { Direction.RIGHT, Properties.Resources.WB_RIGHT },
                 { Direction.LEFT, Properties.Resources.WB_LEFT }
             };
-            mvnttDirection = Direction.NONE;
-            this.Life = life;
-            IsAlive = true;
             nbBombe = 1;
             chPlayer = Character.BLACK;
             Bonusplayer = Bonus.Bonustype.NONE;
             Pencil.Color = Color.Transparent;
             bombeEffect = 1;
             bonusMax = 1;
-            //Bonusplayer = new List<Bonus>();
-        }
-
-        public void CheckLocation(int tileSize)
-        {
-            CasePosition[1] = (((Source.X + Source.Width)-35)/tileSize); //colonne
-            CasePosition[0] = (((Source.Y + Source.Height)-35)/tileSize);//ligne
-
-            //CasePosition[1] = Source.Y/ tileSize;
-        }
-        
-        public void MoveToDirection()
-        {
-            switch (mvnttDirection)
-            {
-                case Direction.RIGHT:
-                    MoveRigth();
-                    break;
-                case Direction.LEFT:
-                    MoveLeft();
-                    break;
-                case Direction.UP:
-                    MoveUp();
-                    break;
-                case Direction.DOWN:
-                    MoveDown();
-                    break;
-                case Direction.NONE:
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void MoveRigth()
-        {             
-           MoveObject(vitesse, 0);                      
-        }
-
-        public void MoveLeft()
-        {         
-            MoveObject(-vitesse, 0);
-        }
-
-        public void MoveUp()
-        {
-           MoveObject(0, -vitesse);
-        }
-
-        public void MoveDown()
-        {
-           MoveObject(0, vitesse);
         }
 
 

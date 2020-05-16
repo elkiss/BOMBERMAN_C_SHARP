@@ -55,6 +55,7 @@
     <Compile Include="GameObj\Bombe.cs" />
     <Compile Include="GameObj\Bonus.cs" />
     <Compile Include="GameObj\Enemies.cs" />
+    <Compile Include="GameObj\GameCharacter.cs" />
     <Compile Include="GameObj\GameObjets.cs" />
     <Compile Include="GameObj\Player.cs" />
     <Compile Include="GameWorlds\Tile.cs" />
