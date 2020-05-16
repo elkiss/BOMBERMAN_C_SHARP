@@ -45,7 +45,7 @@ namespace BOMBERMAN.GameObj
         #endregion
 
         public GameCharacter(Point playerPos, int playerH, int playerW, int frameMax, int life)
-            : base(playerPos, playerH, playerW, frameMax)
+            : base(playerPos, playerW, playerH, frameMax)
         {
           
             mvnttDirection = Direction.NONE;
@@ -55,7 +55,7 @@ namespace BOMBERMAN.GameObj
         }
 
         public GameCharacter(int[] casePos, int playerH, int playerW, int frameMax, int life)
-            : base(casePos, playerH, playerW, frameMax)
+            : base(casePos, playerW, playerH, frameMax)
         {
 
             mvnttDirection = Direction.NONE;

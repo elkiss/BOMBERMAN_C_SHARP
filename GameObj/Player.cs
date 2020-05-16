@@ -60,7 +60,7 @@ namespace BOMBERMAN.GameObj
         }
         
         public Player(string pName,int[] casePos,int playerH,int playerW,int frameMax,int life)
-            :base(casePos,playerH,playerW,frameMax,life)
+            :base(casePos,playerW,playerH,frameMax,life)
         {
             Vitesse = 10;
             PlayerSprites = new Dictionary<Direction, Image>

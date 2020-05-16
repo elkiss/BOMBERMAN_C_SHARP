@@ -75,7 +75,7 @@ namespace BOMBERMAN.GameWorlds
 
             int line = CasePosition[0];
             int col = CasePosition[1];
-            int nb = nbAlea.Next(1, 500);
+            int nb = nbAlea.Next(1, 100);
 
 
             switch (nb)
@@ -86,11 +86,11 @@ namespace BOMBERMAN.GameWorlds
                     break;
                 case int n when n < 50:
                     bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.SPEED);
-                    bonus.LoadSprites(Properties.Resources.B_LAUNCH);
+                    bonus.LoadSprites(Properties.Resources.B_SPEED);
                     break;
                 case int n when n < 70:
                     bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.D_SPEED);
-                    bonus.LoadSprites(Properties.Resources.B_KICK);
+                    bonus.LoadSprites(Properties.Resources.B_DSPEED);
                     break;
 
                 default:

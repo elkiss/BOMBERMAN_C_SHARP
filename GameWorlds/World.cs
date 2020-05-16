@@ -36,7 +36,7 @@ namespace BOMBERMAN.GameWorlds
             };
             player1.LoadSprites(Properties.Resources.WB_DOWN);
 
-            player2 = new Player("teste", new int[] { 8, 8 }, 30, 40, 3, 0)
+            player2 = new Player("teste", new int[] { 8, 8 }, 30, 35, 3, 0)
             {
                 ChPlayer = Player.Character.PINK
             };
@@ -128,9 +128,9 @@ namespace BOMBERMAN.GameWorlds
                     }
                     else if(mapMatrice[i,j].IsFree)
                     {
-                        //mapMatrice[i, j].UnloadSprite();
+                        mapMatrice[i, j].UnloadSprite();
                     }
-                    else if(mapMatrice[i, j].bonus != null)
+                    if(mapMatrice[i, j].bonus != null)
                     {
                         mapMatrice[i, j].bonus.DrawObject(gr);
                     }
