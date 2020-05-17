@@ -13,7 +13,6 @@ namespace BOMBERMAN
     public partial class GameMode : UserControl
     {
         private MainWindow gParam;
-        public bool confirm;
         public GameMode(MainWindow mainForm)
         {
             InitializeComponent();
@@ -79,27 +78,18 @@ namespace BOMBERMAN
                 gParam.gameParam.gameMode = 1;
                 gParam.CacherControl(1);
                 gParam.CharacterWindow.Visible=true;
-                confirm = true;
             }
             else if (bouton.Name.Equals(btn_multi.Name))
             {
                 gParam.gameParam.gameMode = 2;
                 gParam.CacherControl(1);
                 gParam.CharacterWindow.Visible = true;
-                confirm = true;
 
             }
             else
             {
-                gParam.CacherControl(1);
-                gParam.CharacterWindow.Show();
-                confirm = true;
+                gParam.CacherControl(3);
             }
-        }
-
-        private void GameMode_Paint(object sender, PaintEventArgs e)
-        {
-            confirm = false;
         }
     }
 }
