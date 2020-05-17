@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS1690: L'accès à un membre sur le champ d'une classe de marshaling par référence peut entraîner une exception de runtime
+dotnet_diagnostic.CS1690.severity = none

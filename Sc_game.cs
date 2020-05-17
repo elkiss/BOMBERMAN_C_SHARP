@@ -9,8 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BOMBERMAN.GameWorlds;
-using MesControles;
-using System.Windows;
 using BOMBERMAN.GameObj;
 
 namespace BOMBERMAN

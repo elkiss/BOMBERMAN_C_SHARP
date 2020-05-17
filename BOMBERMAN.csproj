@@ -34,12 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MesControles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MesControles\bin\Debug\MesControles.dll</HintPath>
-    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,9 +48,30 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Transitions">
+      <HintPath>..\..\..\..\..\..\..\..\dot-net-transitions-master\Bin\Transitions\Transitions.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WinFormAnimation">
+      <HintPath>..\..\..\..\..\..\..\..\WinFormAnimation-master\Debug\net4\WinFormAnimation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChooseCharacter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ChooseCharacter.Designer.cs">
+      <DependentUpon>ChooseCharacter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Game.cs" />
+    <Compile Include="GameMode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GameMode.Designer.cs">
+      <DependentUpon>GameMode.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameObj\Bombe.cs" />
     <Compile Include="GameObj\Bonus.cs" />
     <Compile Include="GameObj\Enemies.cs" />
@@ -59,6 +79,12 @@
     <Compile Include="GameObj\GameObjets.cs" />
     <Compile Include="GameObj\Player.cs" />
     <Compile Include="GameWorlds\Tile.cs" />
+    <Compile Include="MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -73,6 +99,15 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameWorlds\World.cs" />
+    <EmbeddedResource Include="ChooseCharacter.resx">
+      <DependentUpon>ChooseCharacter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameMode.resx">
+      <DependentUpon>GameMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sc_game.resx">
       <DependentUpon>Sc_game.cs</DependentUpon>
     </EmbeddedResource>
@@ -81,6 +116,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -166,6 +202,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\B_DEFFECT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_not_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\backImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\txt_base.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lasthover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lastleave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nexthover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nextleave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BLB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MB.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
