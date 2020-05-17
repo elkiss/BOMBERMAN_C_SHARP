@@ -105,7 +105,9 @@ namespace BOMBERMAN
 
         public void ButtonHover(object o, EventArgs e)
         {
+
             Button bouton = o as Button;
+            bouton.Cursor = Cursors.Hand;
             if (bouton.Text.Equals("VALIDER") || bouton.Text.Equals("ANNULER"))
                 bouton.BackgroundImage = Properties.Resources.btn_hover;
             else if (bouton.Name.Equals("btn_nextP1") || bouton.Name.Equals("btn_nextP2"))

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Cursors = System.Windows.Forms.Cursors;
 
 namespace BOMBERMAN
 {
@@ -64,6 +65,7 @@ namespace BOMBERMAN
         private void ButtonHover(object o,EventArgs e)
         {
             Button b = o as Button;
+            b.Cursor = Cursors.Hand;
             b.BackgroundImage = Properties.Resources.btn_hover;
         }
         

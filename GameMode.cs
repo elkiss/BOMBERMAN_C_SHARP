@@ -61,6 +61,7 @@ namespace BOMBERMAN
         public void ButtonHover(object o, EventArgs e)
         {
             Button b = o as Button;
+            b.Cursor = Cursors.Hand;
             b.BackgroundImage = Properties.Resources.btn_hover;
         }
 
@@ -77,23 +78,17 @@ namespace BOMBERMAN
             if (bouton.Name.Equals(btn_solo.Name))
             {
                 gParam.gameParam.gameMode = 1;
-                gParam.CacherControl(1);
-                gParam.CharacterWindow.Visible=true;
-                confirm = true;
+                gParam.CacherControl(2);
             }
             else if (bouton.Name.Equals(btn_multi.Name))
             {
                 gParam.gameParam.gameMode = 2;
-                gParam.CacherControl(1);
-                gParam.CharacterWindow.Visible = true;
-                confirm = true;
+                gParam.CacherControl(2);
 
             }
             else
             {
-                gParam.CacherControl(1);
-                gParam.CharacterWindow.Show();
-                confirm = true;
+                gParam.CacherControl(3);
             }
         }
 
