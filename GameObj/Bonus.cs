@@ -28,8 +28,11 @@ namespace BOMBERMAN.GameObj
         internal Bonustype BonusTtype { get => bonusTtype; set => bonusTtype = value; }
 
         public Bonus(int[] casePos,int fheight,int fWidth,int nbFrame,Bonustype btype)
-            :base(casePos,fheight,fWidth,nbFrame)
+            :base(casePos,fWidth,fheight,nbFrame)
         {
+            int x, y;
+            x = (60 - fWidth) / 2;
+            y = (60 - fheight) / 2;
             bonusTtype = btype;
         }
     }

@@ -100,8 +100,6 @@
             this.Controls.Add(this.btn_c);
             this.Name = "GameMode";
             this.Size = new System.Drawing.Size(392, 349);
-            this.Load += new System.EventHandler(this.GameMode_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameMode_Paint);
             this.ResumeLayout(false);
             this.PerformLayout();
 

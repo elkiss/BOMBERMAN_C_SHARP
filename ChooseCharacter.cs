@@ -18,14 +18,16 @@ namespace BOMBERMAN
         private List<string> characterName;
         private int indexch = 0;
         public MainWindow gParam;
+
+
         public ChooseCharacter(MainWindow mainForm)
         {
             InitializeComponent();
+
             int x, y;
             x = (mainForm.Width - Size.Width) / 2;
             y = (mainForm.Height - Size.Height) / 2;
             Location = new Point(x, y);
-            //mainForm.Size = Size;
 
             #region Character Added
             character = new List<Image>()
@@ -99,10 +101,6 @@ namespace BOMBERMAN
 
         }
 
-        private void ChooseCharacter_Load(object sender, EventArgs e)
-        {
-        }
-
         public void ButtonHover(object o, EventArgs e)
         {
             Button bouton = o as Button;
@@ -146,6 +144,8 @@ namespace BOMBERMAN
 
                             break;
                         case DialogResult.Yes:
+                            gParam.GameScreen = new Sc_game(gParam);
+                            gParam.GameScreen.ShowDialog(gParam);
                             gParam.CacherControl(3);
                             break;
                         case DialogResult.No:
@@ -176,10 +176,12 @@ namespace BOMBERMAN
 
                             break;                     
                         case DialogResult.Yes:
-                            this.Hide();
+                            gParam.GameScreen = new Sc_game(gParam);
+                            gParam.GameScreen.ShowDialog();                           
+                            gParam.CacherControl(3);
                             break;
                         case DialogResult.No:
-                            this.Hide();
+                            gParam.CacherControl(3);
                             break;
                         default:
                             break;
@@ -263,14 +265,12 @@ namespace BOMBERMAN
             }
         }
 
-        private void pan_p1_Paint(object sender, PaintEventArgs e)
+        private void ChooseCharacter_VisibleChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void splitter1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
+            if(this.Visible == true)
+            {
+                pan_p1.Enabled = btn_Vp1.Enabled =btn_Cp1.Enabled = true;
+            }
         }
     }
 }

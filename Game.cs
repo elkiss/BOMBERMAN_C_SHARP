@@ -15,17 +15,14 @@ namespace BOMBERMAN
     class Game
     {
         private World map;
-
         private Rectangle gameArea;
-
         internal World Map { get => map; set => map = value; }
         internal List<Bombe> BombInGame { get => bombInGame; set => bombInGame = value; }
-
         private List<Bombe> bombInGame;
 
-        public Game(Rectangle area, int playerNumber)
+        public Game(Rectangle area,Image[] p1Sprites, Image[] p2Sprites, MainWindow.Gameparam gameparam)
         {
-            map = new World();
+            map = new World(p1Sprites,p2Sprites,gameparam);
             map.CreateTiles(Properties.Resources.brickDest, Properties.Resources.briqueSolid, 60);
             gameArea = area;
             bombInGame = new List<Bombe>();
@@ -38,52 +35,65 @@ namespace BOMBERMAN
             map.RefreshMap(gr);
         }
 
-        public void KeyDownAction(Keys touch)
+        public void KeyDownActionPlayer1(Keys touch)
         {
-            
-                switch (touch)
-                {
-                    case Keys.Z:
-                        map.Player1.mvnttDirection = Player.Direction.UP;
-                        map.Player1.Sprite = map.Player1.PlayerSprites[Player.Direction.UP];
-                        break;
-                    case Keys.W:
-                        map.Player1.mvnttDirection = Player.Direction.DOWN;
-                        map.Player1.Sprite = map.Player1.PlayerSprites[Player.Direction.DOWN];
+
+            switch (touch)
+            {
+                case Keys.Z:
+                    map.Player1.mvnttDirection = Player.Direction.UP;
+                    map.Player1.Sprite = map.Player1.PlayerSprites[Player.Direction.UP];
                     break;
-                    case Keys.S:
-                        map.Player1.mvnttDirection = Player.Direction.RIGHT;
-                        map.Player1.Sprite = map.Player1.PlayerSprites[Player.Direction.RIGHT];
+                case Keys.W:
+                    map.Player1.mvnttDirection = Player.Direction.DOWN;
+                    map.Player1.Sprite = map.Player1.PlayerSprites[Player.Direction.DOWN];
                     break;
-                    case Keys.Q:
-                        map.Player1.mvnttDirection = Player.Direction.LEFT;
-                        map.Player1.Sprite = map.Player1.PlayerSprites[Player.Direction.LEFT];
+                case Keys.S:
+                    map.Player1.mvnttDirection = Player.Direction.RIGHT;
+                    map.Player1.Sprite = map.Player1.PlayerSprites[Player.Direction.RIGHT];
+                    break;
+                case Keys.Q:
+                    map.Player1.mvnttDirection = Player.Direction.LEFT;
+                    map.Player1.Sprite = map.Player1.PlayerSprites[Player.Direction.LEFT];
                     break;
                 case Keys.Space:
                     map.Player1.DropBomb(bombInGame, map.MapMatrice);
                     break;
-                    case Keys.Up:
-                        map.Player2.mvnttDirection = Player.Direction.UP;
-                        map.Player2.Sprite = map.Player2.PlayerSprites[Player.Direction.UP];
-                        break;
-                    case Keys.Down:
-                        map.Player2.mvnttDirection = Player.Direction.DOWN;
-                        map.Player2.Sprite = map.Player2.PlayerSprites[Player.Direction.DOWN];
+                default:
                     break;
-                    case Keys.Right:
-                        map.Player2.mvnttDirection = Player.Direction.RIGHT;
-                        map.Player2.Sprite = map.Player2.PlayerSprites[Player.Direction.RIGHT];
+            }
+            }
+
+        public void KeyDownActionPlayer2(Keys touch)
+        {
+
+            switch (touch)
+            {
+                case Keys.Up:
+                    map.Player2.mvnttDirection = Player.Direction.UP;
+                    map.Player2.Sprite = map.Player2.PlayerSprites[Player.Direction.UP];
                     break;
-                    case Keys.Left:
-                        map.Player2.mvnttDirection = Player.Direction.LEFT;
-                        map.Player2.Sprite = map.Player2.PlayerSprites[Player.Direction.LEFT];
+                case Keys.Down:
+                    map.Player2.mvnttDirection = Player.Direction.DOWN;
+                    map.Player2.Sprite = map.Player2.PlayerSprites[Player.Direction.DOWN];
                     break;
-                    default:
-                        break;
+                case Keys.Right:
+                    map.Player2.mvnttDirection = Player.Direction.RIGHT;
+                    map.Player2.Sprite = map.Player2.PlayerSprites[Player.Direction.RIGHT];
+                    break;
+                case Keys.Left:
+                    map.Player2.mvnttDirection = Player.Direction.LEFT;
+                    map.Player2.Sprite = map.Player2.PlayerSprites[Player.Direction.LEFT];
+                    break;
+                case Keys.RControlKey:
+                    map.Player2.DropBomb(bombInGame, map.MapMatrice);
+                    break;
+                default:
+                    break;
             }
         }
 
-        public void KeyUpAction(Keys touch)
+        public void KeyUpActionPlayer1(Keys touch)
         {
             switch (touch)
             {
@@ -103,6 +113,16 @@ namespace BOMBERMAN
                     map.Player1.IndexFrame = 0;
                     map.Player1.mvnttDirection = Player.Direction.NONE;
                     break;
+                default:
+                    break;
+            }
+
+        }
+
+        public void KeyUpActionPlayer2(Keys touch)
+        {
+            switch (touch)
+            {
                 case Keys.Right:
                     map.Player2.IndexFrame = 0;
                     map.Player2.mvnttDirection = Player.Direction.NONE;
@@ -124,6 +144,7 @@ namespace BOMBERMAN
             }
 
         }
+
 
         //gestion des déplacement des joueurs et de leurs collision avec les box
         public bool checkCollisionPlayer(Player player1,Player player2,Tile[,] tileMap,Player.Direction playerDirection)
@@ -286,7 +307,6 @@ namespace BOMBERMAN
         public void PlayersLogic()
         {
             map.Player1.CheckLocation(60);
-            map.Player2.CheckLocation(60);
 
             if(map.Player1.mvnttDirection != Player.Direction.NONE)
             {
@@ -297,17 +317,22 @@ namespace BOMBERMAN
                 map.Player1.UpdateFrame(50);
 
                 //map.Player2.IndexFrame = 1;
-            } 
-            
-            if(map.Player2.mvnttDirection != Player.Direction.NONE)
-            {
-                if (!checkCollisionPlayer(map.Player2, null, map.MapMatrice, map.Player2.mvnttDirection))
-                {
-                    map.Player2.MoveToDirection();
-                }
-                map.Player2.UpdateFrame(50);
+            }
 
-                //map.Player2.IndexFrame = 1;
+            if (map.Player2 != null)
+            {
+                map.Player2.CheckLocation(60);
+
+                if (map.Player2.mvnttDirection != Player.Direction.NONE)
+                {
+                    if (!checkCollisionPlayer(map.Player2, null, map.MapMatrice, map.Player2.mvnttDirection))
+                    {
+                        map.Player2.MoveToDirection();
+                    }
+                    map.Player2.UpdateFrame(50);
+
+                    //map.Player2.IndexFrame = 1;
+                }
             }
         }
 
@@ -353,7 +378,8 @@ namespace BOMBERMAN
                                 map.Player1.IsAlive = false;
                                 map.MapMatrice[i, j].Fire = false;
                                 map.Player1.LoadSprites(Properties.Resources.WB_DEAD);
-                                map.Player1.FrameSpeed = 10;
+                                map.Player1.IndexFrame = 2;
+                                //map.Player1.FrameSpeed = 10;
                             }
                             else
                             {
@@ -365,24 +391,29 @@ namespace BOMBERMAN
                            
                                //load bood sprite
                         }
-                        else if(CollisionBetweenRectagle(map.Player2.Source, map.MapMatrice[i, j].Source))
+                        
+                        if(map.Player2 != null)
                         {
-                            if (map.Player2.Life <= 0)
+                            if (CollisionBetweenRectagle(map.Player2.Source, map.MapMatrice[i, j].Source))
                             {
-                                map.Player2.IsAlive = false;
-                                map.Player2.LoadSprites(Properties.Resources.WB_DEAD);
-                                map.MapMatrice[i, j].Fire = false;
-                                map.Player2.FrameSpeed = 10;
+                                if (map.Player2.Life <= 0)
+                                {
+                                    map.Player2.IsAlive = false;
+                                    map.Player2.LoadSprites(Properties.Resources.WB_DEAD);
+                                    map.MapMatrice[i, j].Fire = false;
+                                    map.Player2.FrameSpeed = 10;
+                                }
+                                else
+                                {
+                                    map.Player1.Life--;
+                                    map.MapMatrice[i, j].Fire = false;
+                                    map.MapMatrice[i, j].IndexFrame = 0;
+                                    map.MapMatrice[i, j].UnloadSprite();
+                                }
                             }
-                            else
-                            {
-                                map.Player1.Life--;
-                                map.MapMatrice[i, j].Fire = false;
-                                map.MapMatrice[i, j].IndexFrame = 0;
-                                map.MapMatrice[i, j].UnloadSprite();
-                            }
-                        }
-                        else if(map.MapMatrice[i,j].FireTime <= 0)
+                        }                       
+                        
+                        if(map.MapMatrice[i,j].FireTime <= 0)
                         {
                             map.MapMatrice[i, j].FireTime = 300;// à revoire avec temp timer
                             map.MapMatrice[i, j].Fire = false;
@@ -400,8 +431,9 @@ namespace BOMBERMAN
         
         public void BonusLogic()
         {
+            map.Player1.CheckLocation(60);
             int colp1 = map.Player1.CasePosition[1], linep1 = map.Player1.CasePosition[0];
-            int colp2 = map.Player2.CasePosition[1], linep2 = map.Player2.CasePosition[0];
+
 
             if(map.MapMatrice[colp1,linep1].bonus != null)
             {
@@ -477,79 +509,87 @@ namespace BOMBERMAN
             } 
             
             
-            if(map.MapMatrice[colp2,linep2].bonus != null)
+            if(map.Player2 != null)
             {
-                switch (map.MapMatrice[colp2,linep2].bonus.BonusTtype)
-                {
-                    case Bonus.Bonustype.BOMBE:
-                        if (map.Player2.NbBombe < 10)
-                        {
-                            map.Player2.NbBombe++;
-                            map.MapMatrice[colp1, linep1].bonus = null;
-                        }
-                        break;
-                    case Bonus.Bonustype.SPEED:
-                        if(map.Player2.Vitesse<30)
-                        {
-                            map.Player2.Vitesse++;
-                            map.MapMatrice[colp2, linep2].bonus = null;
-                        }
-                        break;
-                    case Bonus.Bonustype.D_SPEED:
-                        if(map.Player2.Vitesse > 1)
-                        {
-                            map.Player2.Vitesse--;
-                            map.MapMatrice[colp2, linep2].bonus = null;
-                        }
-                        break;
-                    case Bonus.Bonustype.DISAMORCE:
-                        if(map.Player2.Bonusplayer != Bonus.Bonustype.NONE)
-                        {
-                            map.Player2.Bonusplayer = Bonus.Bonustype.DISAMORCE;
-                            map.MapMatrice[colp2, linep2].bonus = null;
-                        }
-                        break;
-                    case Bonus.Bonustype.LIFE:
-                        if (map.Player2.Life < 5)
-                        {
-                            map.Player2.Life++;
-                            map.MapMatrice[colp2, linep2].bonus = null;
-                        }
+                map.Player2.CheckLocation(60);
 
-                        break;
-                    case Bonus.Bonustype.EFFECT:
-                        if (map.Player2.BombeEffect < 9)
-                        {
-                            map.Player2.BombeEffect++;
-                            map.MapMatrice[colp2, linep2].bonus = null;
-                        }
-                        break;
-                    case Bonus.Bonustype.D_EFFET:
-                        if (map.Player2.BombeEffect > 2)
-                        {
+                int colp2 = map.Player2.CasePosition[1], linep2 = map.Player2.CasePosition[0];
+
+                if (map.MapMatrice[colp2, linep2].bonus != null)
+                {
+                    switch (map.MapMatrice[colp2, linep2].bonus.BonusTtype)
+                    {
+                        case Bonus.Bonustype.BOMBE:
+                            if (map.Player2.NbBombe < 10)
+                            {
+                                map.Player2.NbBombe++;
+                                map.MapMatrice[colp1, linep1].bonus = null;
+                            }
+                            break;
+                        case Bonus.Bonustype.SPEED:
+                            if (map.Player2.Vitesse < 30)
+                            {
+                                map.Player2.Vitesse++;
+                                map.MapMatrice[colp2, linep2].bonus = null;
+                            }
+                            break;
+                        case Bonus.Bonustype.D_SPEED:
+                            if (map.Player2.Vitesse > 1)
+                            {
+                                map.Player2.Vitesse--;
+                                map.MapMatrice[colp2, linep2].bonus = null;
+                            }
+                            break;
+                        case Bonus.Bonustype.DISAMORCE:
+                            if (map.Player2.Bonusplayer != Bonus.Bonustype.NONE)
+                            {
+                                map.Player2.Bonusplayer = Bonus.Bonustype.DISAMORCE;
+                                map.MapMatrice[colp2, linep2].bonus = null;
+                            }
+                            break;
+                        case Bonus.Bonustype.LIFE:
+                            if (map.Player2.Life < 5)
+                            {
+                                map.Player2.Life++;
+                                map.MapMatrice[colp2, linep2].bonus = null;
+                            }
+
+                            break;
+                        case Bonus.Bonustype.EFFECT:
+                            if (map.Player2.BombeEffect < 9)
+                            {
+                                map.Player2.BombeEffect++;
+                                map.MapMatrice[colp2, linep2].bonus = null;
+                            }
+                            break;
+                        case Bonus.Bonustype.D_EFFET:
+                            if (map.Player2.BombeEffect > 2)
+                            {
+                                map.Player2.BombeEffect--;
+                                map.MapMatrice[colp2, linep2].bonus = null;
+                            }
                             map.Player2.BombeEffect--;
-                            map.MapMatrice[colp2, linep2].bonus = null;
-                        }
-                        map.Player2.BombeEffect--;
-                        break;
-                    case Bonus.Bonustype.KICK:
-                        if (map.Player2.Bonusplayer != Bonus.Bonustype.NONE)
-                        {
-                            map.Player2.Bonusplayer = Bonus.Bonustype.KICK;
-                            map.MapMatrice[colp2, linep2].bonus = null;
-                        }
-                        break;
-                    case Bonus.Bonustype.LAUNCH:
-                        if (map.Player2.Bonusplayer != Bonus.Bonustype.NONE)
-                        {
-                            map.Player2.Bonusplayer = Bonus.Bonustype.LAUNCH;
-                            map.MapMatrice[colp2, linep2].bonus = null;
-                        }
-                        break;
-                    default:
-                        break;
+                            break;
+                        case Bonus.Bonustype.KICK:
+                            if (map.Player2.Bonusplayer != Bonus.Bonustype.NONE)
+                            {
+                                map.Player2.Bonusplayer = Bonus.Bonustype.KICK;
+                                map.MapMatrice[colp2, linep2].bonus = null;
+                            }
+                            break;
+                        case Bonus.Bonustype.LAUNCH:
+                            if (map.Player2.Bonusplayer != Bonus.Bonustype.NONE)
+                            {
+                                map.Player2.Bonusplayer = Bonus.Bonustype.LAUNCH;
+                                map.MapMatrice[colp2, linep2].bonus = null;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+            
 
         }   
         

@@ -12,8 +12,9 @@ namespace BOMBERMAN
 {
     public partial class GameMode : UserControl
     {
+
         private MainWindow gParam;
-        public bool confirm;
+
         public GameMode(MainWindow mainForm)
         {
             InitializeComponent();
@@ -25,6 +26,7 @@ namespace BOMBERMAN
             Location = new Point(x, y);
 
             gParam = mainForm;
+
             #region Button
             btn_solo.MouseHover += new EventHandler(ButtonHover);
             btn_multi.MouseHover += new EventHandler(ButtonHover);
@@ -52,12 +54,6 @@ namespace BOMBERMAN
             #endregion
         }
 
-        private void GameMode_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
         public void ButtonHover(object o, EventArgs e)
         {
             Button b = o as Button;
@@ -77,29 +73,19 @@ namespace BOMBERMAN
             if (bouton.Name.Equals(btn_solo.Name))
             {
                 gParam.gameParam.gameMode = 1;
-                gParam.CacherControl(1);
-                gParam.CharacterWindow.Visible=true;
-                confirm = true;
+                gParam.CacherControl(2);
             }
             else if (bouton.Name.Equals(btn_multi.Name))
             {
                 gParam.gameParam.gameMode = 2;
-                gParam.CacherControl(1);
-                gParam.CharacterWindow.Visible = true;
-                confirm = true;
+                gParam.CacherControl(2);
 
             }
             else
             {
-                gParam.CacherControl(1);
-                gParam.CharacterWindow.Show();
-                confirm = true;
+                gParam.CacherControl(3);
             }
         }
 
-        private void GameMode_Paint(object sender, PaintEventArgs e)
-        {
-            confirm = false;
-        }
     }
 }

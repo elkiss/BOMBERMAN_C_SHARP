@@ -44,7 +44,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MV Boli", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(716, 590);
+            this.label1.Location = new System.Drawing.Point(676, 589);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(159, 22);
             this.label1.TabIndex = 3;
@@ -129,6 +129,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainWindow";
             this.Load += new System.EventHandler(this.MainWindow_Load);
+            this.VisibleChanged += new System.EventHandler(this.MainWindow_VisibleChanged);
             this.pan_Main.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

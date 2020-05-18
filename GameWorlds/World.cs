@@ -13,29 +13,19 @@ namespace BOMBERMAN.GameWorlds
         internal Player Player1 { get => player1; set => player1 = value; }
         internal Player Player2 { get => player2; set => player2 = value; }
 
-        private enum Difficulty
-        {
-            eazy = 1,
-            medium = 2,
-            hard = 3,
-            veryHard = 4,
-        }
-
-        public World()
+        public World(Image[] p1Sprites, Image[] p2Sprites, MainWindow.Gameparam gameparam)
         {
             mapMatrice = new Tile[9, 9];
 
-            player1 = new Player("teste", new int[] { 0, 0 }, 30, 40, 3, 0)
-            {
-                ChPlayer = Player.Character.BLACK
-            };
-            player1.LoadSprites(Properties.Resources.WB_DOWN);
+            player1 = new Player(new int[] { 0, 0 }, 27, 40, 3, 0);
+            player1.Load(p1Sprites, gameparam.nameP1);
 
-            player2 = new Player("teste", new int[] { 8, 8 }, 30, 35, 3, 0)
+            if(gameparam.gameMode == 2)
             {
-                ChPlayer = Player.Character.PINK
-            };
-            player2.LoadSprites(Properties.Resources.WB_UP);
+                player2 = new Player(new int[] { 8, 8 }, 27, 40, 3, 0);
+                Player2.Load(p2Sprites, gameparam.nameP2);
+            }
+            
         }
 
 
@@ -132,9 +122,13 @@ namespace BOMBERMAN.GameWorlds
 
                 }
             }
+
             DrawWorldsTiles(gr);
+
             player1.DrawObject(gr);
-            player2.DrawObject(gr);
+
+            if(player2 != null)
+                player2.DrawObject(gr);
         }
 
         public void LoadPlayerOnMap(Graphics gr)
@@ -154,20 +148,27 @@ namespace BOMBERMAN.GameWorlds
                 mapMatrice[i, col].IsDestoyable = false;
             }
 
-            for (int i = 4; i > 0; i--)
-            {
-                mapMatrice[8, i].UnloadSprite();
-                mapMatrice[8, i].IsFree = true;
-                mapMatrice[8, i].Occupied = false;
-                mapMatrice[8, i].IsDestoyable = false;
-                mapMatrice[i, 8].UnloadSprite();
-                mapMatrice[i, 8].IsFree = true;
-                mapMatrice[i, 8].Occupied = false;
-                mapMatrice[i, 8].IsDestoyable = false;
-
-            }
             player1.DrawObject(gr);
-            player2.DrawObject(gr);
+
+            if (player2 != null)
+            {
+                for (int i = 4; i > 0; i--)
+                {
+                    mapMatrice[8, i].UnloadSprite();
+                    mapMatrice[8, i].IsFree = true;
+                    mapMatrice[8, i].Occupied = false;
+                    mapMatrice[8, i].IsDestoyable = false;
+                    mapMatrice[i, 8].UnloadSprite();
+                    mapMatrice[i, 8].IsFree = true;
+                    mapMatrice[i, 8].Occupied = false;
+                    mapMatrice[i, 8].IsDestoyable = false;
+
+                }
+
+                player2.DrawObject(gr);
+            }
+           
+           
         }
 
 

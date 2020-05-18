@@ -141,21 +141,6 @@
     <None Include="Resources\brick0.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\WB_DEAD.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WB_DOWN.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WB_LEFT.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WB_RIGHT.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WB_UP.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\IC_BOMB.png" />
   </ItemGroup>
   <ItemGroup>
@@ -189,16 +174,10 @@
     <None Include="Resources\B_KICK.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\B_LIFE.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\B_SPEED.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\B_LAUNCH.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\B_DISM.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\B_DEFFECT.png" />
@@ -238,6 +217,99 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B_LIFE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B_DBOMB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B_DISM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WB_DOWN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WB_UP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WB_RIGHT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WB_DEAD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WB_LEFT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WB_WIN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBL_DEAD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBL_DOWN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBL_LEFT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBL_RIGHT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBL_TOP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBL_WIN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBLA_DEAD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBLA_DOWN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBLA_LEFT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBLA_RIGHT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBLA_TOP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBBLA_WIN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBM_DEAD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBM_DOWN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBM_LEFT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBM_RIGHT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBM_TOP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WBM_WIN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INT_WB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INT_WBBL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INT_WBBLA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INT_WBM.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
