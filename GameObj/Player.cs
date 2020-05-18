@@ -47,7 +47,7 @@ namespace BOMBERMAN.GameObj
             Vitesse = 10;
             nbBombe = 1;
             Bonusplayer = Bonus.Bonustype.NONE;
-            Pencil.Color = Color.Black;
+            Pencil.Color = Color.Transparent;
             bombeEffect = 1;
         }
         
@@ -57,7 +57,7 @@ namespace BOMBERMAN.GameObj
             Vitesse = 10;
             nbBombe = 1;
             Bonusplayer = Bonus.Bonustype.NONE;
-            Pencil.Color = Color.Black;
+            Pencil.Color = Color.Transparent;
             bombeEffect = 1;
         }
 
@@ -109,7 +109,7 @@ namespace BOMBERMAN.GameObj
                     tileMap[col, line].IsFree = false;
                     tileMap[col, line].bomb.LoadSprites(Properties.Resources.Bombe);
                     tileMap[col, line].bomb.FrameMax = 16;
-                    tileMap[col, line].bomb.FrameSpeed = 50;
+                    tileMap[col, line].bomb.FrameSpeed = 200;
                     bombOnMap.Add(tileMap[col, line].bomb);
                     nbBombe--;
                 }

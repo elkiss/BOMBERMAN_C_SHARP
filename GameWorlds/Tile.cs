@@ -26,7 +26,7 @@ namespace BOMBERMAN.GameWorlds
         {
             Occupied = false;
             Fire = false;
-            FireTime = 300;          
+            FireTime = 500;          
         }
 
         public Tile()

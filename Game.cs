@@ -85,7 +85,7 @@ namespace BOMBERMAN
                     map.Player2.mvnttDirection = Player.Direction.LEFT;
                     map.Player2.Sprite = map.Player2.PlayerSprites[Player.Direction.LEFT];
                     break;
-                case Keys.RControlKey:
+                case Keys.ControlKey:
                     map.Player2.DropBomb(bombInGame, map.MapMatrice);
                     break;
                 default:
@@ -157,70 +157,67 @@ namespace BOMBERMAN
                 case Player.Direction.RIGHT:
 
                     Rectangle rect = new Rectangle(
-                        player1.Source.X + (player1.Vitesse),
+                        player1.Source.X,
                         player1.Source.Y,
                         player1.Source.Width,
-                        player1.Source.Height);
+                        player1.Source.Height - 5);
 
 
                     if ((player1.Source.X + player1.Source.Width) >= gameArea.Width - 25)
-                        return true;                   
+                        return true;
 
-                    if (col < 8)
+                    if (col >= 8)
+                        return false;
+                    else
                     {
-                        if (!tileMap[col + 1, line].IsFree)
-                            if (CollisionBetweenRectagle(rect, tileMap[col + 1, line].Source))
-                                return true;
-                        
                         if (line < 8)
                             if (CollisionBetweenRectagle(rect, tileMap[col + 1, line + 1].Source) && CollisionBetweenRectagle(rect, tileMap[col + 1, line].Source))
                                 if (!tileMap[col + 1, line + 1].IsFree || !tileMap[col + 1, line].IsFree)
                                     return true;
-                        
+
                         if (line > 0)
                             if (CollisionBetweenRectagle(rect, tileMap[col + 1, line - 1].Source) && CollisionBetweenRectagle(rect, tileMap[col + 1, line].Source))
                                 if (!tileMap[col + 1, line - 1].IsFree || !tileMap[col + 1, line].IsFree)
                                     return true;
 
-                        if (tileMap[col + 1, line].Occupied && CollisionBetweenRectagle(rect,tileMap[col+1,line].Source))
-                            return true;
+                            if (!tileMap[col + 1, line].IsFree && CollisionBetweenRectagle(rect, tileMap[col + 1, line].Source))
+                                return true;
                     }
-                      
+                    
+                    
+
 
                     return false;
 
                 case Player.Direction.LEFT:
 
                    rect = new Rectangle(
-                       player1.Source.X - (player1.Vitesse),
+                       player1.Source.X,
                        player1.Source.Y,
                        player1.Source.Width,
                        player1.Source.Height);
 
                     if (player1.Source.X <= 25)
-                        return true;                
+                        return true;
 
                     if (col <= 0)
                         return false;
-
-                    if (!tileMap[col - 1, line].IsFree && CollisionBetweenRectagle(rect, tileMap[col - 1, line].Source))
-                        return true;
-
-                    if (line > 0)
+                    else
                     {
-                        if (col > 0)
+                        if (line > 0)
                             if (CollisionBetweenRectagle(rect, tileMap[col - 1, line - 1].Source) && CollisionBetweenRectagle(rect, tileMap[col - 1, line].Source))
                                 if (!tileMap[col - 1, line - 1].IsFree || !tileMap[col - 1, line].IsFree)
                                     return true;
 
-                        if (CollisionBetweenRectagle(rect, tileMap[col - 1, line - 1].Source) && !tileMap[col - 1, line].IsFree)
-                            return true;
-                    }
-                        
+                        if (line < 8)
+                            if (CollisionBetweenRectagle(rect, tileMap[col - 1, line + 1].Source) && CollisionBetweenRectagle(rect, tileMap[col - 1, line].Source))
+                                if (!tileMap[col - 1, line + 1].IsFree || !tileMap[col - 1, line].IsFree)
+                                    return true;
 
-                    if (!tileMap[col-1, line].IsFree)
-                        if (CollisionBetweenRectagle(rect, tileMap[col-1, line].Source))
-                            return true;
+                            if (CollisionBetweenRectagle(rect, tileMap[col, line].Source) && !tileMap[col, line].IsFree)
+                                return true;
+                    }
+                    
 
                     return false;
 
@@ -228,33 +225,27 @@ namespace BOMBERMAN
 
                     rect = new Rectangle(
                        player1.Source.X,
-                       player1.Source.Y + (player1.Vitesse),
+                       player1.Source.Y + 2,
                        player1.Source.Width,
                        player1.Source.Height);
 
                     if (player1.Source.Y + player1.Source.Height >= gameArea.Height - 25)
                         return true;
-                  
 
-                    if (line >= 8)
-                        return false;
 
-                    if(line < 8)
-                    {
+                    if (col > 0 && line < 8)
+                        if (CollisionBetweenRectagle(rect, tileMap[col - 1, line + 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line + 1].Source))
+                            if (!tileMap[col - 1, line + 1].IsFree || !tileMap[col, line + 1].IsFree)
+                                return true;
+                        
+                    if (col < 8 && line < 8)
+                        if (CollisionBetweenRectagle(rect, tileMap[col + 1, line + 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line + 1].Source))
+                            if (!tileMap[col + 1, line + 1].IsFree || !tileMap[col, line + 1].IsFree)
+                                return true;
+
+                    if (line < 8)
                         if (!tileMap[col, line + 1].IsFree && CollisionBetweenRectagle(rect, tileMap[col, line + 1].Source))
                             return true;
-
-                        if (col > 0)
-                            if (CollisionBetweenRectagle(rect, tileMap[col - 1, line + 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line + 1].Source))
-                                if (!tileMap[col - 1, line + 1].IsFree || !tileMap[col, line + 1].IsFree)
-                                    return true;
-                        
-                        if (col < 8)
-                            if (CollisionBetweenRectagle(rect, tileMap[col + 1, line + 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line + 1].Source))
-                                if (!tileMap[col + 1, line + 1].IsFree || !tileMap[col, line + 1].IsFree)
-                                    return true;
-
-                    }
 
 
                     return false;
@@ -263,28 +254,30 @@ namespace BOMBERMAN
 
                     rect = new Rectangle(
                        player1.Source.X,
-                       player1.Source.Y - (player1.Vitesse),
+                       player1.Source.Y - 2,
                        player1.Source.Width,
                        player1.Source.Height);
 
                     if (player1.Source.Y <= 25)
                         return true;
 
-                  
+                    
+
+                    if(col > 0 && line > 0)
+                        if (CollisionBetweenRectagle(rect, tileMap[col - 1, line - 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line - 1].Source))
+                            if (!tileMap[col - 1, line - 1].IsFree || !tileMap[col, line - 1].IsFree)
+                                return true;
+                    
+                    if(col < 8 && line > 0)
+                        if (CollisionBetweenRectagle(rect, tileMap[col + 1, line - 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line - 1].Source))
+                            if (!tileMap[col + 1, line - 1].IsFree || !tileMap[col, line - 1].IsFree)
+                                return true;
+
 
                     if (line > 0)
-                    {
                         if (!tileMap[col, line - 1].IsFree)
                             if (CollisionBetweenRectagle(rect, tileMap[col, line - 1].Source))
                                 return true;
-                        if(col > 0)
-                            if (CollisionBetweenRectagle(rect, tileMap[col - 1, line - 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line - 1].Source))
-                                if (!tileMap[col - 1, line - 1].IsFree || !tileMap[col, line - 1].IsFree)
-                                    return true;
-
-                        if (tileMap[col, line - 1].Occupied && CollisionBetweenRectagle(rect, tileMap[col, line -1].Source))
-                            return true;
-                    }
 
                     return false;
 
@@ -296,12 +289,25 @@ namespace BOMBERMAN
             }
         }
 
+        //public bool CollisionBetweenRectagle(Rectangle rect1,Rectangle rect2)
+        //{
+        //    if (rect1.IntersectsWith(rect2))
+        //        return true;
+        //    else
+        //        return false;
+        //} 
+        
         public bool CollisionBetweenRectagle(Rectangle rect1,Rectangle rect2)
         {
-            if (rect1.IntersectsWith(rect2))
-                return true;
-            else
+           if(rect1.X + rect1.Width < rect2.X || rect2.X + rect2.Width < rect1.X
+                || rect1.Y + rect1.Height < rect2.Y || rect2.Y + rect2.Height < rect1.Y)
+            {
                 return false;
+            }
+           else
+            {
+                return true;
+            }
         }
 
         public void PlayersLogic()
@@ -314,7 +320,7 @@ namespace BOMBERMAN
                 {
                     map.Player1.MoveToDirection();
                 }
-                map.Player1.UpdateFrame(50);
+                map.Player1.UpdateFrame(20);
 
                 //map.Player2.IndexFrame = 1;
             }
@@ -329,7 +335,7 @@ namespace BOMBERMAN
                     {
                         map.Player2.MoveToDirection();
                     }
-                    map.Player2.UpdateFrame(50);
+                    map.Player2.UpdateFrame(20);
 
                     //map.Player2.IndexFrame = 1;
                 }
@@ -341,7 +347,7 @@ namespace BOMBERMAN
             List<Bombe> toRemove = new List<Bombe>();
             foreach (Bombe bombe in bombInGame)
             {
-                bombe.UpdateFrame(50);
+                bombe.UpdateFrame(20);
                 bombe.ExplosionTiming(20);
 
                 if(bombe.IsExplosed)
@@ -415,7 +421,7 @@ namespace BOMBERMAN
                         
                         if(map.MapMatrice[i,j].FireTime <= 0)
                         {
-                            map.MapMatrice[i, j].FireTime = 300;// à revoire avec temp timer
+                            map.MapMatrice[i, j].FireTime = 500;// à revoire avec temp timer
                             map.MapMatrice[i, j].Fire = false;
                             map.MapMatrice[i, j].IndexFrame = 0;
                         }
@@ -423,7 +429,7 @@ namespace BOMBERMAN
                         {
                             map.MapMatrice[i, j].FireTime -= 100;
                         }
-                        map.MapMatrice[i, j].UpdateFrame(50);
+                        map.MapMatrice[i, j].UpdateFrame(20);
                     }
                 }
             }
@@ -447,7 +453,7 @@ namespace BOMBERMAN
                         }
                         break;
                     case Bonus.Bonustype.SPEED:
-                        if(map.Player1.Vitesse<30)
+                        if(map.Player1.Vitesse<10)
                         {
                             map.Player1.Vitesse++;
                             map.MapMatrice[colp1, linep1].bonus = null;
@@ -475,7 +481,7 @@ namespace BOMBERMAN
                         }
                         break;
                     case Bonus.Bonustype.EFFECT:
-                        if (map.Player1.BombeEffect < 9)
+                        if (map.Player1.BombeEffect < 8)
                         {
                             map.Player1.BombeEffect++;
                             map.MapMatrice[colp1, linep1].bonus = null;

@@ -29,7 +29,7 @@ namespace BOMBERMAN.GameObj
         {
             IsExplosed = false;
             Disamorced = false;
-            detonTime = 300;
+            detonTime = 3000;
             this.who = who;
             effect = 1;
             Pencil.Color = Color.Transparent;

@@ -65,8 +65,8 @@ namespace BOMBERMAN.GameObj
 
         public void CheckLocation(int tileSize)
         {
-            CasePosition[1] = (((Source.X + Source.Width) - 35) / tileSize); //colonne
-            CasePosition[0] = (((Source.Y + Source.Height) - 35) / tileSize);//ligne
+            CasePosition[1] = (((Source.X + Source.Width) - 50) / tileSize); //colonne
+            CasePosition[0] = (((Source.Y + Source.Height) - 50) / tileSize);//ligne
 
             if (CasePosition[1] > 8)
                 CasePosition[1] = 8;

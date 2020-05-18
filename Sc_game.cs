@@ -134,9 +134,11 @@ namespace BOMBERMAN
                 Color.Gray, 20, ButtonBorderStyle.Inset);
 
             game.Interraction();
-            game.PlayersLogic();
+
             game.BombeLogic();
             game.BonusLogic();
+            game.PlayersLogic();
+
             game.Map.RefreshMap(gr);
             game.DrawMap(gr);
 

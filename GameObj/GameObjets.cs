@@ -56,11 +56,11 @@ namespace BOMBERMAN.GameObj
         public GameObjets(Point ObjLocation,int objSizeH,int objSizeW,int frameMax)
         {
             source = new Rectangle(ObjLocation, new Size(objSizeH, objSizeW));
-            Pencil = new Pen(new SolidBrush(Color.Transparent), 2);
+            Pencil = new Pen(new SolidBrush(Color.Transparent), 0);
             indexFrame = 0;
             casePosition = new int[2] { 0, 0 };
             this.frameMax = frameMax;
-            frameSpeed = 100000;
+            frameSpeed = 100;
 
 
         }
@@ -72,7 +72,7 @@ namespace BOMBERMAN.GameObj
             int y = (casePos[0] * 60);
 
             source = new Rectangle(new Point(x+25,y+25), new Size(objSizeH, objSizeW));
-            Pencil = new Pen(new SolidBrush(Color.Black), 2);
+            Pencil = new Pen(new SolidBrush(Color.Black), 0);
             indexFrame = 0;
             casePosition = casePos;
             this.frameMax = frameMax;
