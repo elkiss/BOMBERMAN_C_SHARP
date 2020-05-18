@@ -127,17 +127,11 @@
   <data name="WB_LEFT" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WB_LEFT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WB_RIGHT" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WB_RIGHT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="backImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\backImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Bombe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Bombe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="brick0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\brick0.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="B_EFFECT" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\B_EFFECT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -162,12 +156,6 @@
   </data>
   <data name="FIRE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FIRE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="B_LIFE" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\B_LIFE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="B_DISM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\B_DISM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="B_DEFFECT" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\B_DEFFECT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -222,5 +210,86 @@
   </data>
   <data name="MB" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="B_DBOMB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\B_DBOMB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="B_DISM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\B_DISM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="B_LIFE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\B_LIFE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INT_WB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INT_WB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INT_WBBL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INT_WBBL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INT_WBBLA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INT_WBBLA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INT_WBM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INT_WBM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBLA_DEAD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBLA_DEAD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBLA_DOWN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBLA_DOWN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBLA_LEFT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBLA_LEFT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBLA_RIGHT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBLA_RIGHT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBLA_UP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBLA_TOP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBLA_WIN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBLA_WIN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBL_DEAD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBL_DEAD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBL_DOWN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBL_DOWN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBL_LEFT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBL_LEFT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBL_RIGHT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBL_RIGHT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBL_UP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBL_TOP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBBL_WIN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBBL_WIN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBM_DEAD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBM_DEAD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBM_DOWN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBM_DOWN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBM_LEFT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBM_LEFT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBM_RIGHT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBM_RIGHT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBM_UP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBM_TOP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WBM_WIN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WBM_WIN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WB_RIGHT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WB_RIGHT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WB_WIN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WB_WIN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

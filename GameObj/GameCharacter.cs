@@ -16,8 +16,6 @@ namespace BOMBERMAN.GameObj
     {
         private int vitesse;
 
-        public string PlayerName { get; set; }
-
         public int Life { get; set; }
 
         public bool IsAlive { get; set; }
@@ -29,6 +27,8 @@ namespace BOMBERMAN.GameObj
             LEFT,
             UP,
             DOWN,
+            DEAD,
+            WIN,
             NONE
         }
 
@@ -67,6 +67,11 @@ namespace BOMBERMAN.GameObj
         {
             CasePosition[1] = (((Source.X + Source.Width) - 35) / tileSize); //colonne
             CasePosition[0] = (((Source.Y + Source.Height) - 35) / tileSize);//ligne
+
+            if (CasePosition[1] > 8)
+                CasePosition[1] = 8;
+            if (CasePosition[0] > 8)
+                CasePosition[0] = 8;
 
         }
 

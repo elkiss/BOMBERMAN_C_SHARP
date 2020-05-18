@@ -133,7 +133,6 @@
             this.splitter1.Size = new System.Drawing.Size(395, 483);
             this.splitter1.TabIndex = 22;
             this.splitter1.TabStop = false;
-            this.splitter1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitter1_SplitterMoved);
             // 
             // pan_p1
             // 
@@ -145,7 +144,6 @@
             this.pan_p1.Name = "pan_p1";
             this.pan_p1.Size = new System.Drawing.Size(379, 369);
             this.pan_p1.TabIndex = 23;
-            this.pan_p1.Paint += new System.Windows.Forms.PaintEventHandler(this.pan_p1_Paint);
             // 
             // btn_nextP1
             // 
@@ -278,7 +276,7 @@
             this.Controls.Add(this.pan_p2);
             this.Name = "ChooseCharacter";
             this.Size = new System.Drawing.Size(784, 483);
-            this.Load += new System.EventHandler(this.ChooseCharacter_Load);
+            this.VisibleChanged += new System.EventHandler(this.ChooseCharacter_VisibleChanged);
             this.pan_p2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

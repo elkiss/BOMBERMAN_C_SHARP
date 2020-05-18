@@ -43,10 +43,8 @@ namespace BOMBERMAN.GameObj
         public int[] CasePosition { get => casePosition; 
             set 
             {
-                if(!(value[0] < 0 || value[1] < 0))
-                {
-                    casePosition = value;// à revoir
-                }
+                casePosition = value;
+
             } 
         }
 
@@ -62,7 +60,7 @@ namespace BOMBERMAN.GameObj
             indexFrame = 0;
             casePosition = new int[2] { 0, 0 };
             this.frameMax = frameMax;
-            frameSpeed = 10;
+            frameSpeed = 100000;
 
 
         }
@@ -78,7 +76,7 @@ namespace BOMBERMAN.GameObj
             indexFrame = 0;
             casePosition = casePos;
             this.frameMax = frameMax;
-            frameSpeed = 10;
+            frameSpeed = 100;
         }
 
         public GameObjets()
@@ -102,6 +100,7 @@ namespace BOMBERMAN.GameObj
             {
                 gr.DrawImage(Sprite, source, source.Width*indexFrame,0,source.Width,source.Height, GraphicsUnit.Pixel);
                 gr.DrawString("" + CasePosition[0] + " " + CasePosition[1], new Font(FontFamily.GenericSansSerif, 10, FontStyle.Regular), new SolidBrush(Color.Red), Source);
+                gr.DrawRectangle(Pencil, source);
 
             }
             else

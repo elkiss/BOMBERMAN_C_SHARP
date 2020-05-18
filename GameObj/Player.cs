@@ -23,6 +23,8 @@ namespace BOMBERMAN.GameObj
         {
             WHITE,
             BLACK,
+            BLUE,
+            MAROON,
             RED,
             PINK,
         }
@@ -39,44 +41,58 @@ namespace BOMBERMAN.GameObj
 
         #endregion
 
-        public Player(string pName,Point playerPos,int playerH,int playerW,int frameMax,int life)
+        public Player(Point playerPos,int playerH,int playerW,int frameMax,int life)
             :base(playerPos,playerH,playerW,frameMax,life)
         {
             Vitesse = 10;
-            PlayerSprites = new Dictionary<Direction, Image>
-            {
-                { Direction.UP, Properties.Resources.WB_UP },
-                { Direction.DOWN, Properties.Resources.WB_DOWN },
-                { Direction.RIGHT, Properties.Resources.WB_RIGHT },
-                { Direction.LEFT, Properties.Resources.WB_LEFT }
-            };
-
-            PlayerName = pName;
             nbBombe = 1;
             Bonusplayer = Bonus.Bonustype.NONE;
-            chPlayer = Character.BLACK;
-            Pencil.Color = Color.Transparent;
+            Pencil.Color = Color.Black;
             bombeEffect = 1;
         }
         
-        public Player(string pName,int[] casePos,int playerH,int playerW,int frameMax,int life)
+        public Player(int[] casePos,int playerH,int playerW,int frameMax,int life)
             :base(casePos,playerW,playerH,frameMax,life)
         {
             Vitesse = 10;
-            PlayerSprites = new Dictionary<Direction, Image>
-            {
-                { Direction.UP, Properties.Resources.WB_UP },
-                { Direction.DOWN, Properties.Resources.WB_DOWN },
-                { Direction.RIGHT, Properties.Resources.WB_RIGHT },
-                { Direction.LEFT, Properties.Resources.WB_LEFT }
-            };
             nbBombe = 1;
-            chPlayer = Character.BLACK;
             Bonusplayer = Bonus.Bonustype.NONE;
-            Pencil.Color = Color.Transparent;
+            Pencil.Color = Color.Black;
             bombeEffect = 1;
         }
 
+        public void Load(Image[] Sprites, string pCharacter)
+        {
+            PlayerSprites = new Dictionary<Direction, Image>
+            {
+                { Direction.RIGHT, Sprites[0]},
+                { Direction.LEFT, Sprites[1] },
+                { Direction.UP, Sprites[2] },
+                { Direction.DOWN, Sprites[3] },
+                { Direction.DEAD, Sprites[4]},
+                { Direction.WIN, Sprites[5] },
+            };
+
+            switch (pCharacter)
+            {
+                case "WHITE":
+                    ChPlayer = Character.WHITE;
+                    break;
+                case "BLACK":
+                    ChPlayer = Character.BLACK;
+                    break;
+                case "BLUE":
+                    ChPlayer = Character.BLUE;
+                    break;
+                case "MAROON":
+                    ChPlayer = Character.MAROON;
+                    break;
+                default:
+                    break;
+            }
+
+            LoadSprites(PlayerSprites[Direction.DOWN]);
+        }
 
         #region Player Actions
 

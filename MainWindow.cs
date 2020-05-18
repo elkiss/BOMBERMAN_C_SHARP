@@ -19,16 +19,15 @@ namespace BOMBERMAN
             public string nameP2;
 
         }
-
-       public ChooseCharacter CharacterWindow;
-       public GameMode gameModeWindow;
-
+        public ChooseCharacter CharacterWindow;
+        public GameMode gameModeWindow;
         public Gameparam gameParam;
+        public Sc_game GameScreen = null;
 
         public MainWindow()
         {
             InitializeComponent();
-            gameParam.gameMode = 1;
+
             CharacterWindow = new ChooseCharacter(this);
             gameModeWindow = new GameMode(this);
             Controls.Add(CharacterWindow);
@@ -113,6 +112,15 @@ namespace BOMBERMAN
                 pan_Main.Visible = !gameModeWindow.Visible;
             }
 
+        }
+
+        private void MainWindow_VisibleChanged(object sender, EventArgs e)
+        {
+            if(this.Visible == false && GameScreen == null)
+            {
+                GameScreen = new Sc_game(this);
+                GameScreen.ShowDialog(this);
+            }
         }
     }
 }
