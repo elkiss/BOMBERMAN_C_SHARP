@@ -12,9 +12,10 @@ using System.Windows.Forms;
 
 namespace BOMBERMAN.GameObj
 {
-    class Player:GameCharacter
+    [Serializable]
+    public class Player:GameCharacter
     {
-
+       
         private int nbBombe;
 
         private int bombeEffect;
@@ -31,6 +32,7 @@ namespace BOMBERMAN.GameObj
 
         private Character chPlayer;
 
+        [NonSerialized]
         public Bonus.Bonustype Bonusplayer;
 
         #region Accessors
@@ -44,21 +46,24 @@ namespace BOMBERMAN.GameObj
         public Player(Point playerPos,int playerH,int playerW,int frameMax,int life)
             :base(playerPos,playerH,playerW,frameMax,life)
         {
-            Vitesse = 10;
+            Vitesse = 5;
             nbBombe = 1;
             Bonusplayer = Bonus.Bonustype.NONE;
             Pencil.Color = Color.Transparent;
             bombeEffect = 1;
+            Life = 3;
         }
         
         public Player(int[] casePos,int playerH,int playerW,int frameMax,int life)
             :base(casePos,playerW,playerH,frameMax,life)
         {
-            Vitesse = 10;
+            Vitesse = 5;
             nbBombe = 1;
             Bonusplayer = Bonus.Bonustype.NONE;
             Pencil.Color = Color.Transparent;
             bombeEffect = 1;
+            Life = 3;
+
         }
 
         public void Load(Image[] Sprites, string pCharacter)
@@ -92,6 +97,24 @@ namespace BOMBERMAN.GameObj
             }
 
             LoadSprites(PlayerSprites[Direction.DOWN]);
+        }
+
+        public void LoadSavedState(Image[] Sprites,Player.Character chp,Player.Direction lastDirect )
+        {
+            PlayerSprites = new Dictionary<Direction, Image>
+            {
+                { Direction.RIGHT, Sprites[0]},
+                { Direction.LEFT, Sprites[1] },
+                { Direction.UP, Sprites[2] },
+                { Direction.DOWN, Sprites[3] },
+                { Direction.DEAD, Sprites[4]},
+                { Direction.WIN, Sprites[5] },
+            };
+
+            ChPlayer = chp;
+            mvnttDirection = Direction.NONE;
+            LoadSprites(PlayerSprites[Direction.DOWN]);
+
         }
 
         #region Player Actions

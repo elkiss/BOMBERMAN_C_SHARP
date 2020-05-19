@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,7 +12,8 @@ using BOMBERMAN.GameObj;
 
 namespace BOMBERMAN.GameWorlds
 {
-    class Tile : GameObjets
+    [Serializable]
+    public class Tile : GameObjets
     {
         public bool IsDestoyable { get; set; }
         public bool IsFree { get; set; }
@@ -19,19 +21,18 @@ namespace BOMBERMAN.GameWorlds
         public bool Fire { get; set; }
         public Bonus bonus = null;
         public Bombe bomb = null;
-        public int FireTime { get; set; }
+        public int FireTime { get; set;}
+
+        [NonSerialized]
+        static Random aleanb;
 
         public Tile(Point pos, int dim) 
             :base(pos,dim,dim,1)
         {
             Occupied = false;
             Fire = false;
+            aleanb = new Random();
             FireTime = 500;          
-        }
-
-        public Tile()
-        {
-
         }
 
         public override void DrawObject(Graphics gr)
@@ -50,6 +51,9 @@ namespace BOMBERMAN.GameWorlds
             }
             else
             {
+                if(Pencil == null)
+                    Pencil = new Pen(new SolidBrush(Color.Transparent), 0);
+
                 gr.DrawRectangle(Pencil, Source);
 
                 //gr.DrawString("L =" + CasePosition[0]+
@@ -70,12 +74,15 @@ namespace BOMBERMAN.GameWorlds
 
         public void GenBonus()
         {
-            Random nbAlea = new Random();
 
 
             int line = CasePosition[0];
             int col = CasePosition[1];
-            int nb = nbAlea.Next(1, 100);
+
+            if (aleanb == null)
+                aleanb = new Random();
+
+            int nb = aleanb.Next(1, 100);
 
 
             switch (nb)
@@ -84,13 +91,21 @@ namespace BOMBERMAN.GameWorlds
                     bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.LIFE);
                     bonus.LoadSprites(Properties.Resources.B_LIFE);
                     break;
-                case int n when n < 50:
+                case int n when n < 20:
                     bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.SPEED);
                     bonus.LoadSprites(Properties.Resources.B_SPEED);
                     break;
-                case int n when n < 70:
+                case int n when n < 40:
                     bonus = new Bonus(new int[] { col, line }, 44, 44, 1,Bonus.Bonustype.D_SPEED);
                     bonus.LoadSprites(Properties.Resources.B_DSPEED);
+                    break;
+                case int n when n < 60:
+                    bonus = new Bonus(new int[] { col, line }, 44, 44, 1, Bonus.Bonustype.EFFECT);
+                    bonus.LoadSprites(Properties.Resources.B_EFFECT);
+                    break;
+                case int n when n < 80:
+                    bonus = new Bonus(new int[] { col, line }, 44, 44, 1, Bonus.Bonustype.D_EFFET);
+                    bonus.LoadSprites(Properties.Resources.B_DEFFECT);
                     break;
 
                 default:

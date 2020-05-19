@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace BOMBERMAN.GameObj
 {
-    class Bombe : GameObjets, IDisposable    
+    [Serializable]
+   public class Bombe : GameObjets, IDisposable    
     {
+
         private int detonTime;
 
         private int effect;
@@ -21,6 +23,7 @@ namespace BOMBERMAN.GameObj
 
         public int DetonTime { get => detonTime; set => detonTime = value; }
         internal Player.Character Who { get => who; set => who = value; }
+        public int Effect { get => effect; set => effect = value; }
 
         private Player.Character who;
 
@@ -103,6 +106,8 @@ namespace BOMBERMAN.GameObj
                         else if (tileMap[col - i, line].IsFree)
                         {
                             tileMap[col - i, line].Fire = true;
+                            tileMap[col - i, line].bonus = null;
+
                         }
                     }
                 }
@@ -130,6 +135,8 @@ namespace BOMBERMAN.GameObj
                         else if(tileMap[col + i, line].IsFree)
                         {
                             tileMap[col + i, line].Fire = true;
+                            tileMap[col + i, line].bonus = null;
+
                         }
                     }
                 }
@@ -158,6 +165,7 @@ namespace BOMBERMAN.GameObj
                         else if(tileMap[col, line - i].IsFree)
                         {
                             tileMap[col, line - i].Fire = true;
+                            tileMap[col, line - i].bonus = null;
 
                         }
                     }
@@ -187,6 +195,8 @@ namespace BOMBERMAN.GameObj
                         else if (tileMap[col, line + i].IsFree)
                         {
                             tileMap[col, line + i].Fire = true;
+                            tileMap[col, line + i].bonus = null;
+
                         }
                     }
                 }

@@ -28,65 +28,74 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lb_p1 = new System.Windows.Forms.Label();
-            this.btn_solo = new System.Windows.Forms.Button();
-            this.btn_multi = new System.Windows.Forms.Button();
-            this.btn_c = new System.Windows.Forms.Button();
+            this.lb_titre = new System.Windows.Forms.Label();
+            this.btn_newGame = new System.Windows.Forms.Button();
+            this.btn_exit = new System.Windows.Forms.Button();
+            this.pb_winner = new System.Windows.Forms.PictureBox();
+            this.lb_winner = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_winner)).BeginInit();
             this.SuspendLayout();
             // 
-            // lb_p1
+            // lb_titre
             // 
-            this.lb_p1.AutoSize = true;
-            this.lb_p1.BackColor = System.Drawing.Color.Transparent;
-            this.lb_p1.Font = new System.Drawing.Font("Showcard Gothic", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_p1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lb_p1.Location = new System.Drawing.Point(95, 18);
-            this.lb_p1.Name = "lb_p1";
-            this.lb_p1.Size = new System.Drawing.Size(188, 31);
-            this.lb_p1.TabIndex = 20;
-            this.lb_p1.Text = "MODE DE JEUX";
+            this.lb_titre.AutoSize = true;
+            this.lb_titre.BackColor = System.Drawing.Color.Transparent;
+            this.lb_titre.Font = new System.Drawing.Font("Showcard Gothic", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_titre.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lb_titre.Location = new System.Drawing.Point(108, 13);
+            this.lb_titre.Name = "lb_titre";
+            this.lb_titre.Size = new System.Drawing.Size(154, 43);
+            this.lb_titre.TabIndex = 20;
+            this.lb_titre.Text = "WINNER";
             // 
-            // btn_solo
+            // btn_newGame
             // 
-            this.btn_solo.BackgroundImage = global::BOMBERMAN.Properties.Resources.btn_not_hover;
-            this.btn_solo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_solo.FlatAppearance.BorderSize = 0;
-            this.btn_solo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_solo.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_solo.Location = new System.Drawing.Point(12, 96);
-            this.btn_solo.Name = "btn_solo";
-            this.btn_solo.Size = new System.Drawing.Size(370, 59);
-            this.btn_solo.TabIndex = 19;
-            this.btn_solo.Text = "SOLO";
-            this.btn_solo.UseVisualStyleBackColor = true;
+            this.btn_newGame.BackgroundImage = global::BOMBERMAN.Properties.Resources.btn_not_hover;
+            this.btn_newGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_newGame.FlatAppearance.BorderSize = 0;
+            this.btn_newGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_newGame.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_newGame.Location = new System.Drawing.Point(12, 208);
+            this.btn_newGame.Name = "btn_newGame";
+            this.btn_newGame.Size = new System.Drawing.Size(370, 59);
+            this.btn_newGame.TabIndex = 19;
+            this.btn_newGame.Text = "NOUVELLE PARTIE";
+            this.btn_newGame.UseVisualStyleBackColor = true;
             // 
-            // btn_multi
+            // btn_exit
             // 
-            this.btn_multi.BackgroundImage = global::BOMBERMAN.Properties.Resources.btn_not_hover;
-            this.btn_multi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_multi.FlatAppearance.BorderSize = 0;
-            this.btn_multi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_multi.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_multi.Location = new System.Drawing.Point(12, 161);
-            this.btn_multi.Name = "btn_multi";
-            this.btn_multi.Size = new System.Drawing.Size(370, 59);
-            this.btn_multi.TabIndex = 18;
-            this.btn_multi.Text = "MULTIPLAYER";
-            this.btn_multi.UseVisualStyleBackColor = true;
+            this.btn_exit.BackgroundImage = global::BOMBERMAN.Properties.Resources.btn_not_hover;
+            this.btn_exit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_exit.FlatAppearance.BorderSize = 0;
+            this.btn_exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_exit.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_exit.Location = new System.Drawing.Point(12, 275);
+            this.btn_exit.Name = "btn_exit";
+            this.btn_exit.Size = new System.Drawing.Size(370, 59);
+            this.btn_exit.TabIndex = 18;
+            this.btn_exit.Text = "MENU PRINCIPAL";
+            this.btn_exit.UseVisualStyleBackColor = true;
             // 
-            // btn_c
+            // pb_winner
             // 
-            this.btn_c.BackgroundImage = global::BOMBERMAN.Properties.Resources.btn_not_hover;
-            this.btn_c.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_c.FlatAppearance.BorderSize = 0;
-            this.btn_c.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_c.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_c.Location = new System.Drawing.Point(12, 264);
-            this.btn_c.Name = "btn_c";
-            this.btn_c.Size = new System.Drawing.Size(370, 67);
-            this.btn_c.TabIndex = 17;
-            this.btn_c.Text = "RETOUR";
-            this.btn_c.UseVisualStyleBackColor = true;
+            this.pb_winner.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pb_winner.Location = new System.Drawing.Point(22, 71);
+            this.pb_winner.Name = "pb_winner";
+            this.pb_winner.Size = new System.Drawing.Size(138, 123);
+            this.pb_winner.TabIndex = 21;
+            this.pb_winner.TabStop = false;
+            // 
+            // lb_winner
+            // 
+            this.lb_winner.AutoSize = true;
+            this.lb_winner.BackColor = System.Drawing.Color.Transparent;
+            this.lb_winner.Font = new System.Drawing.Font("Showcard Gothic", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_winner.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lb_winner.Location = new System.Drawing.Point(190, 120);
+            this.lb_winner.Name = "lb_winner";
+            this.lb_winner.Size = new System.Drawing.Size(124, 31);
+            this.lb_winner.TabIndex = 22;
+            this.lb_winner.Text = "PLAYER 1";
             // 
             // GameMode
             // 
@@ -94,22 +103,24 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Controls.Add(this.lb_p1);
-            this.Controls.Add(this.btn_solo);
-            this.Controls.Add(this.btn_multi);
-            this.Controls.Add(this.btn_c);
+            this.Controls.Add(this.lb_winner);
+            this.Controls.Add(this.pb_winner);
+            this.Controls.Add(this.lb_titre);
+            this.Controls.Add(this.btn_newGame);
+            this.Controls.Add(this.btn_exit);
             this.Name = "GameMode";
             this.Size = new System.Drawing.Size(392, 349);
+            ((System.ComponentModel.ISupportInitialize)(this.pb_winner)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn_c;
-        private System.Windows.Forms.Button btn_multi;
-        private System.Windows.Forms.Button btn_solo;
-        private System.Windows.Forms.Label lb_p1;
+        private System.Windows.Forms.Button btn_exit;
+        private System.Windows.Forms.Button btn_newGame;
+        private System.Windows.Forms.Label lb_titre;
+        private System.Windows.Forms.PictureBox pb_winner;
+        private System.Windows.Forms.Label lb_winner;
     }
 }

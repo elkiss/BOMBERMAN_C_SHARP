@@ -11,14 +11,15 @@ using System.Windows.Forms;
 
 namespace BOMBERMAN.GameObj
 {
-    class GameObjets
+    [Serializable]
+    public class GameObjets
     {
         private Rectangle source;
 
-
+        [NonSerialized]
         private Image sprite;
 
-
+        
         private int frameMax;
 
         private int indexFrame;
@@ -29,7 +30,8 @@ namespace BOMBERMAN.GameObj
 
         private int[] casePosition;
 
-        protected Pen Pencil { get; set; }
+        [NonSerialized]
+        private Pen pencil;
 
 
 
@@ -50,6 +52,7 @@ namespace BOMBERMAN.GameObj
 
         public int FrameMax { get => frameMax; set => frameMax = value; }
         public float FrameSpeed { get => frameSpeed; set => frameSpeed = value; }
+        protected Pen Pencil { get => pencil; set => pencil = value; }
 
         #endregion
 
@@ -79,9 +82,16 @@ namespace BOMBERMAN.GameObj
             frameSpeed = 100;
         }
 
-        public GameObjets()
+
+        public GameObjets(int objH,int objW, int frameMax)
         {
-            
+            source = new Rectangle(new Point(0,0), new Size(objH,objW));
+            Pencil = new Pen(new SolidBrush(Color.Black), 0);
+            indexFrame = 0;
+            casePosition = new int[2] { 0, 0 };
+            this.frameMax = frameMax;
+            frameSpeed = 100;
+
         }
 
         public void LoadSprites(Image spr)
@@ -96,8 +106,13 @@ namespace BOMBERMAN.GameObj
 
         public virtual  void DrawObject(Graphics gr)
         {
-            if(sprite != null)
+            if(pencil == null)
+                Pencil = new Pen(new SolidBrush(Color.Transparent), 0);
+
+            if (sprite != null)
             {
+          
+
                 gr.DrawImage(Sprite, source, source.Width*indexFrame,0,source.Width,source.Height, GraphicsUnit.Pixel);
                 gr.DrawString("" + CasePosition[0] + " " + CasePosition[1], new Font(FontFamily.GenericSansSerif, 10, FontStyle.Regular), new SolidBrush(Color.Red), Source);
                 gr.DrawRectangle(Pencil, source);
@@ -105,6 +120,7 @@ namespace BOMBERMAN.GameObj
             }
             else
             {
+
                 gr.DrawRectangle(Pencil, source);
 
             }

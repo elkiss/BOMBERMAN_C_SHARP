@@ -13,44 +13,55 @@ namespace BOMBERMAN
     public partial class GameMode : UserControl
     {
 
-        private MainWindow gParam;
+        private Sc_game scG;
+        private MainWindow.Gameparam Gameparam;
 
-        public GameMode(MainWindow mainForm)
+        public GameMode(Sc_game gameSc, MainWindow.Gameparam gameparam)
         {
             InitializeComponent();
 
             int x, y;
 
-            x = (mainForm.Width -Size.Width)/2;
-            y = (mainForm.Height-Size.Height)/2;
+            x = (gameSc.Width -Size.Width)/2;
+            y = (gameSc.Height-Size.Height)/2;
             Location = new Point(x, y);
 
-            gParam = mainForm;
+            scG = gameSc;
+
+
+            this.Gameparam = gameparam;
+
+
+
+            if (scG.MyGame.Map.Player1.IsAlive)
+            {
+                pb_winner.BackgroundImage = scG.pb_icP1.BackgroundImage;
+                lb_winner.Text = scG.lb_p1.Text;
+            }
+            else
+            {
+                pb_winner.BackgroundImage = scG.pb_icP2.BackgroundImage;
+                lb_winner.Text = scG.lb_p2.Text;
+            }
 
             #region Button
-            btn_solo.MouseHover += new EventHandler(ButtonHover);
-            btn_multi.MouseHover += new EventHandler(ButtonHover);
-            btn_c.MouseHover += new EventHandler(ButtonHover);
+            btn_newGame.MouseHover += new EventHandler(ButtonHover);
+            btn_exit.MouseHover += new EventHandler(ButtonHover);
 
-            btn_solo.MouseHover += new EventHandler(ButtonHover);
-            btn_multi.MouseHover += new EventHandler(ButtonHover);
-            btn_c.MouseHover += new EventHandler(ButtonHover); 
+            btn_newGame.MouseHover += new EventHandler(ButtonHover);
+            btn_exit.MouseHover += new EventHandler(ButtonHover);
             
-            btn_solo.Click += new EventHandler(ButtonClick);
-            btn_multi.Click += new EventHandler(ButtonClick);
-            btn_c.Click += new EventHandler(ButtonClick);
+            btn_newGame.Click += new EventHandler(ButtonClick);
+            btn_exit.Click += new EventHandler(ButtonClick);
 
-            btn_solo.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btn_multi.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btn_c.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_newGame.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_exit.FlatAppearance.MouseOverBackColor = Color.Transparent;
 
-            btn_solo.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btn_multi.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btn_c.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_newGame.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_exit.FlatAppearance.MouseOverBackColor = Color.Transparent;
 
-            btn_solo.MouseLeave += new EventHandler(ButtonLeave);
-            btn_multi.MouseLeave += new EventHandler(ButtonLeave);
-            btn_c.MouseLeave += new EventHandler(ButtonLeave);
+            btn_newGame.MouseLeave += new EventHandler(ButtonLeave);
+            btn_exit.MouseLeave += new EventHandler(ButtonLeave);
             #endregion
         }
 
@@ -70,20 +81,15 @@ namespace BOMBERMAN
         {
             Button bouton = o as Button;
 
-            if (bouton.Name.Equals(btn_solo.Name))
+            if (bouton.Name.Equals(btn_newGame.Name))
             {
-                gParam.gameParam.gameMode = 1;
-                gParam.CacherControl(2);
+                scG.LoadGameParam(this.Gameparam,null);
+                scG.pan_arena.Visible = true;
+                this.Dispose();
             }
-            else if (bouton.Name.Equals(btn_multi.Name))
+            else if (bouton.Name.Equals(btn_exit.Name))
             {
-                gParam.gameParam.gameMode = 2;
-                gParam.CacherControl(2);
-
-            }
-            else
-            {
-                gParam.CacherControl(3);
+                scG.Close();
             }
         }
 

@@ -12,14 +12,15 @@ using System.Windows.Forms;
 
 namespace BOMBERMAN.GameObj
 {
-    class GameCharacter:GameObjets
+    [Serializable]
+    public class GameCharacter:GameObjets
     {
+
         private int vitesse;
 
         public int Life { get; set; }
 
         public bool IsAlive { get; set; }
-
 
         public enum Direction
         {
@@ -32,9 +33,10 @@ namespace BOMBERMAN.GameObj
             NONE
         }
 
-
+        [NonSerialized]
         public Direction mvnttDirection;
 
+        [NonSerialized]
         private IDictionary<Direction, Image> playerSprites;//a modifier
 
         #region Accessors
@@ -60,6 +62,14 @@ namespace BOMBERMAN.GameObj
 
             mvnttDirection = Direction.NONE;
             this.Life = life;
+            IsAlive = true;
+        }
+        
+        public GameCharacter( int playerH, int playerW, int frameMax)
+            : base(playerW, playerH, frameMax)
+        {
+
+            mvnttDirection = Direction.NONE;
             IsAlive = true;
         }
 

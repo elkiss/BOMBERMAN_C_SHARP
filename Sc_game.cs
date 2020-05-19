@@ -17,13 +17,15 @@ namespace BOMBERMAN
     {
         private BufferedGraphics bufferG = null;
         private Graphics gr;
-        private Game game;
+        private Game myGame;
         private List<string> playerCharacter;
         private List<Image[]> playerSprites;
         private List<Image> iconOnGame;
         private MainWindow mainWin;
 
-        public Sc_game(MainWindow mainW)
+        internal Game MyGame { get => myGame; set => myGame = value; }
+
+        public Sc_game(MainWindow mainW,GameState sauv)
         {
             InitializeComponent();
 
@@ -84,9 +86,11 @@ namespace BOMBERMAN
                 {Properties.Resources.INT_WBM },
             };
 
-            LoadGameParam(mainW.gameParam);
-
             mainWin = mainW;
+
+            LoadGameParam(mainW.gameParam, sauv);
+                
+          
 
         }
 
@@ -98,30 +102,13 @@ namespace BOMBERMAN
             x = (ClientSize.Width - pan_arena.Size.Width)/ 2;
             y = (ClientSize.Height - pan_arena.Height) / 2;
             pan_arena.Location = new Point(x, y);
-            game.DrawMap(gr);
-            game.Map.LoadPlayerOnMap(gr);
+
         }
 
         private void pan_arena_Paint(object sender, PaintEventArgs e)
         {
-            //ControlPaint.DrawBorder(e.Graphics, pan_arena.ClientRectangle, Color.Gray, 20, ButtonBorderStyle.Outset,
-            //    Color.Gray, 20, ButtonBorderStyle.Outset,
-            //    Color.Gray, 20, ButtonBorderStyle.Outset,
-            //    Color.Gray, 20, ButtonBorderStyle.Outset);
-            //game.DrawMap(e.Graphics);
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            gr.Clear(pan_arena.BackColor);
 
-            ControlPaint.DrawBorder(gr, pan_arena.ClientRectangle, Color.Gray, 20, ButtonBorderStyle.Outset,
-                Color.Gray, 20, ButtonBorderStyle.Outset,
-                Color.Gray, 20, ButtonBorderStyle.Outset,
-                Color.Gray, 20, ButtonBorderStyle.Outset);
-            game.DrawMap(gr);
-            game.Map.LoadPlayerOnMap(gr);
-            bufferG.Render();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -133,46 +120,49 @@ namespace BOMBERMAN
                 Color.Gray, 20, ButtonBorderStyle.Inset,
                 Color.Gray, 20, ButtonBorderStyle.Inset);
 
-            game.Interraction();
+            lb_beffectP1.Text = MyGame.Map.Player1.BombeEffect.ToString();
+            lb_nbBp1.Text = MyGame.Map.Player1.NbBombe.ToString();
+            lb_speedP1.Text = MyGame.Map.Player1.Vitesse.ToString();
+            lb_lifeP1.Text = MyGame.Map.Player1.Life.ToString();
 
-            game.BombeLogic();
-            game.BonusLogic();
-            game.PlayersLogic();
+            lb_BeffectP2.Text = MyGame.Map.Player2.BombeEffect.ToString();
+            lb_nbBp2.Text = MyGame.Map.Player2.NbBombe.ToString();
+            lb_SpeedP2.Text = MyGame.Map.Player2.Vitesse.ToString();
+            lb_lifeP2.Text = MyGame.Map.Player2.Life.ToString();
 
-            game.Map.RefreshMap(gr);
-            game.DrawMap(gr);
 
-            if (game.BombInGame.Count >= 0)
+            if (MyGame.GameOver())
             {
-                foreach (Bombe item in game.BombInGame)
-                {
-                    item.DrawObject(gr);
-                }
+                timer1.Stop();
+                GameMode dialog = new GameMode(this, mainWin.gameParam);
+                this.pan_arena.Visible = false;
+                this.Controls.Add(dialog);
             }
-            
+            else if (myGame.PauseGame)
+            {
+                timer1.Stop();
+                PauseGame dialog = new PauseGame(this);
+                pan_arena.Visible = false;
+                this.Controls.Add(dialog);
+            }
+
+
+            MyGame.GameLogic(gr);
 
             bufferG.Render();
         }
 
         private void Sc_game_KeyDown(object sender, KeyEventArgs e)
         {
-            game.KeyDownActionPlayer1(e.KeyCode);
-
-            if(game.Map.Player2 != null)
-            {
-                game.KeyDownActionPlayer2(e.KeyCode);
-            }
+            MyGame.KeyDownActionPlayer1(e.KeyCode);
+            MyGame.KeyDownActionPlayer2(e.KeyCode);
         }
 
         private void Sc_game_KeyUp(object sender, KeyEventArgs e)
         {
-            game.KeyUpActionPlayer1(e.KeyCode);
+            MyGame.KeyUpActionPlayer1(e.KeyCode);
+            MyGame.KeyUpActionPlayer2(e.KeyCode);
 
-            if(game.Map.Player2 != null)
-            {
-                game.KeyUpActionPlayer2(e.KeyCode);
-            }
-            
         }
 
         private void Sc_game_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -207,20 +197,47 @@ namespace BOMBERMAN
 
         }
 
-        private void LoadGameParam(MainWindow.Gameparam gameparam)
+        public void LoadGameParam(MainWindow.Gameparam gameparam, GameState access)
         {
-            if(gameparam.gameMode == 2)
+            if(access == null)
             {
+
                 int indexP1 = playerCharacter.IndexOf(gameparam.nameP1);
                 int indexP2 = playerCharacter.IndexOf(gameparam.nameP2);
+                pb_icP1.BackgroundImage = iconOnGame[indexP1];
+                pb_icP2.BackgroundImage = iconOnGame[indexP2];
+                MyGame = new Game(pan_arena.ClientRectangle, playerSprites[indexP1], playerSprites[indexP2], gameparam);
+                pan_p2.Visible = true;
 
-                game = new Game(pan_arena.ClientRectangle,playerSprites[indexP1],playerSprites[indexP2],gameparam);
+                MyGame.LoadGame(gr);
+
+                timer1.Start();
+
             }
             else
             {
-                int indexP1 = playerCharacter.IndexOf(gameparam.nameP1);
-                game = new Game(pan_arena.ClientRectangle, playerSprites[indexP1],null, gameparam);
+                mainWin.gameParam.nameP1 = playerCharacter[(int)access.p1.ChPlayer];
+                mainWin.gameParam.nameP2 = playerCharacter[(int)access.p2.ChPlayer];
+                pb_icP1.BackgroundImage = iconOnGame[(int)access.p1.ChPlayer];
+                pb_icP2.BackgroundImage = iconOnGame[(int)access.p2.ChPlayer];
+                MyGame = new Game(pan_arena.ClientRectangle, playerSprites[(int)access.p1.ChPlayer], playerSprites[(int)access.p2.ChPlayer],access);
+                pan_p2.Visible = true;
+                timer1.Start();
+
             }
+
+
+        }
+
+        private void Sc_game_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            mainWin.Show();
+            timer1.Stop();
+        }
+
+        private void resumeGame()
+        {
+
         }
     }
 }

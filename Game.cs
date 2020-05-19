@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,20 +21,37 @@ namespace BOMBERMAN
         internal World Map { get => map; set => map = value; }
         internal List<Bombe> BombInGame { get => bombInGame; set => bombInGame = value; }
         private List<Bombe> bombInGame;
+        public bool PauseGame { get; set; }
 
-        public Game(Rectangle area,Image[] p1Sprites, Image[] p2Sprites, MainWindow.Gameparam gameparam)
+        public Game(Rectangle area, Image[] p1Sprites, Image[] p2Sprites, MainWindow.Gameparam gameparam)
         {
-            map = new World(p1Sprites,p2Sprites,gameparam);
+            map = new World(p1Sprites, p2Sprites, gameparam);
             map.CreateTiles(Properties.Resources.brickDest, Properties.Resources.briqueSolid, 60);
             gameArea = area;
             bombInGame = new List<Bombe>();
+            PauseGame = false;
+
         }
 
-
-        public void DrawMap(Graphics gr)
+        public Game(Rectangle area, Image[] p1Sprites, Image[] p2Sprites, GameState access)
         {
-            map.DrawWorldsTiles(gr);
-            map.RefreshMap(gr);
+            gameArea = area;   
+            
+            bombInGame = access.BombeIngame;
+
+            if (bombInGame == null)
+                bombInGame = new List<Bombe>();
+
+            map = new World(p1Sprites, p2Sprites, access);
+            map.LoadTiles();
+
+            if(bombInGame != null)
+                foreach (Bombe item in bombInGame)
+                {
+                    item.LoadSprites(Properties.Resources.Bombe);
+                }
+        
+            PauseGame = false;
         }
 
         public void KeyDownActionPlayer1(Keys touch)
@@ -59,10 +78,13 @@ namespace BOMBERMAN
                 case Keys.Space:
                     map.Player1.DropBomb(bombInGame, map.MapMatrice);
                     break;
+                case Keys.Escape:
+                    PauseGame = true;
+                    break;
                 default:
                     break;
             }
-            }
+        }
 
         public void KeyDownActionPlayer2(Keys touch)
         {
@@ -147,10 +169,10 @@ namespace BOMBERMAN
 
 
         //gestion des déplacement des joueurs et de leurs collision avec les box
-        public bool checkCollisionPlayer(Player player1,Player player2,Tile[,] tileMap,Player.Direction playerDirection)
+        public bool checkCollisionPlayer(Player player1, Player player2, Tile[,] tileMap, Player.Direction playerDirection)
         {
             int line = player1.CasePosition[0];
-            int col =  player1.CasePosition[1];
+            int col = player1.CasePosition[1];
 
             switch (playerDirection)
             {
@@ -180,22 +202,22 @@ namespace BOMBERMAN
                                 if (!tileMap[col + 1, line - 1].IsFree || !tileMap[col + 1, line].IsFree)
                                     return true;
 
-                            if (!tileMap[col + 1, line].IsFree && CollisionBetweenRectagle(rect, tileMap[col + 1, line].Source))
-                                return true;
+                        if (!tileMap[col + 1, line].IsFree && CollisionBetweenRectagle(rect, tileMap[col + 1, line].Source))
+                            return true;
                     }
-                    
-                    
+
+
 
 
                     return false;
 
                 case Player.Direction.LEFT:
 
-                   rect = new Rectangle(
-                       player1.Source.X,
-                       player1.Source.Y,
-                       player1.Source.Width,
-                       player1.Source.Height);
+                    rect = new Rectangle(
+                        player1.Source.X,
+                        player1.Source.Y,
+                        player1.Source.Width,
+                        player1.Source.Height - 5);
 
                     if (player1.Source.X <= 25)
                         return true;
@@ -214,10 +236,10 @@ namespace BOMBERMAN
                                 if (!tileMap[col - 1, line + 1].IsFree || !tileMap[col - 1, line].IsFree)
                                     return true;
 
-                            if (CollisionBetweenRectagle(rect, tileMap[col, line].Source) && !tileMap[col, line].IsFree)
-                                return true;
+                        if (CollisionBetweenRectagle(rect, tileMap[col, line].Source) && !tileMap[col, line].IsFree)
+                            return true;
                     }
-                    
+
 
                     return false;
 
@@ -237,7 +259,7 @@ namespace BOMBERMAN
                         if (CollisionBetweenRectagle(rect, tileMap[col - 1, line + 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line + 1].Source))
                             if (!tileMap[col - 1, line + 1].IsFree || !tileMap[col, line + 1].IsFree)
                                 return true;
-                        
+
                     if (col < 8 && line < 8)
                         if (CollisionBetweenRectagle(rect, tileMap[col + 1, line + 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line + 1].Source))
                             if (!tileMap[col + 1, line + 1].IsFree || !tileMap[col, line + 1].IsFree)
@@ -261,14 +283,14 @@ namespace BOMBERMAN
                     if (player1.Source.Y <= 25)
                         return true;
 
-                    
 
-                    if(col > 0 && line > 0)
+
+                    if (col > 0 && line > 0)
                         if (CollisionBetweenRectagle(rect, tileMap[col - 1, line - 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line - 1].Source))
                             if (!tileMap[col - 1, line - 1].IsFree || !tileMap[col, line - 1].IsFree)
                                 return true;
-                    
-                    if(col < 8 && line > 0)
+
+                    if (col < 8 && line > 0)
                         if (CollisionBetweenRectagle(rect, tileMap[col + 1, line - 1].Source) && CollisionBetweenRectagle(rect, tileMap[col, line - 1].Source))
                             if (!tileMap[col + 1, line - 1].IsFree || !tileMap[col, line - 1].IsFree)
                                 return true;
@@ -289,22 +311,14 @@ namespace BOMBERMAN
             }
         }
 
-        //public bool CollisionBetweenRectagle(Rectangle rect1,Rectangle rect2)
-        //{
-        //    if (rect1.IntersectsWith(rect2))
-        //        return true;
-        //    else
-        //        return false;
-        //} 
-        
-        public bool CollisionBetweenRectagle(Rectangle rect1,Rectangle rect2)
+        public bool CollisionBetweenRectagle(Rectangle rect1, Rectangle rect2)
         {
-           if(rect1.X + rect1.Width < rect2.X || rect2.X + rect2.Width < rect1.X
-                || rect1.Y + rect1.Height < rect2.Y || rect2.Y + rect2.Height < rect1.Y)
+            if (rect1.X + rect1.Width < rect2.X || rect2.X + rect2.Width < rect1.X
+                 || rect1.Y + rect1.Height < rect2.Y || rect2.Y + rect2.Height < rect1.Y)
             {
                 return false;
             }
-           else
+            else
             {
                 return true;
             }
@@ -314,7 +328,7 @@ namespace BOMBERMAN
         {
             map.Player1.CheckLocation(60);
 
-            if(map.Player1.mvnttDirection != Player.Direction.NONE)
+            if (map.Player1.mvnttDirection != Player.Direction.NONE)
             {
                 if (!checkCollisionPlayer(map.Player1, null, map.MapMatrice, map.Player1.mvnttDirection))
                 {
@@ -350,7 +364,7 @@ namespace BOMBERMAN
                 bombe.UpdateFrame(20);
                 bombe.ExplosionTiming(20);
 
-                if(bombe.IsExplosed)
+                if (bombe.IsExplosed)
                 {
                     bombe.Propagation(map.Player1, map.Player2, map.MapMatrice);
                     toRemove.Add(bombe);
@@ -361,8 +375,7 @@ namespace BOMBERMAN
 
             for (int i = 0; i < toRemove.Count; i++)
             {
-                if (toRemove[i].DetonTime <= 0 && toRemove[i].IsExplosed)
-                    bombInGame.Remove(toRemove[i]);
+                bombInGame.Remove(toRemove[i]);
             }
 
         }
@@ -373,32 +386,30 @@ namespace BOMBERMAN
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    if(map.MapMatrice[i,j].Fire)
+                    if (map.MapMatrice[i, j].Fire)
                     {
-                        map.MapMatrice[i, j].Occupied = false;
-                        if (CollisionBetweenRectagle(map.Player1.Source, map.MapMatrice[i,j].Source))
+                        if (CollisionBetweenRectagle(map.Player1.Source, map.MapMatrice[i, j].Source))
                         {
-                           
-                            if(map.Player1.Life <= 0)
+
+                            if (map.Player1.Life <= 0)
                             {
                                 map.Player1.IsAlive = false;
-                                map.MapMatrice[i, j].Fire = false;
+                                map.MapMatrice[i, j].FireTime = 0;
                                 map.Player1.LoadSprites(Properties.Resources.WB_DEAD);
                                 map.Player1.IndexFrame = 2;
-                                //map.Player1.FrameSpeed = 10;
                             }
                             else
                             {
-                                map.Player1.Life--;
-                                map.MapMatrice[i, j].Fire = false;
-                                map.MapMatrice[i, j].IndexFrame = 0;
+                              
+                                map.MapMatrice[i, j].FireTime = 0;
+                                map.MapMatrice[i, j].IndexFrame = 2;
                                 map.MapMatrice[i, j].UnloadSprite();
+                                map.Player1.Life--;
                             }
-                           
-                               //load bood sprite
                         }
-                        
-                        if(map.Player2 != null)
+
+
+                        if (map.Player2 != null)
                         {
                             if (CollisionBetweenRectagle(map.Player2.Source, map.MapMatrice[i, j].Source))
                             {
@@ -406,22 +417,24 @@ namespace BOMBERMAN
                                 {
                                     map.Player2.IsAlive = false;
                                     map.Player2.LoadSprites(Properties.Resources.WB_DEAD);
-                                    map.MapMatrice[i, j].Fire = false;
+                                    map.MapMatrice[i, j].FireTime = 0;
                                     map.Player2.FrameSpeed = 10;
+                                    map.Player1.IndexFrame = 2;
+
                                 }
                                 else
                                 {
-                                    map.Player1.Life--;
-                                    map.MapMatrice[i, j].Fire = false;
-                                    map.MapMatrice[i, j].IndexFrame = 0;
+                                    map.Player2.Life--;
+                                    map.MapMatrice[i, j].FireTime = 0;
+                                    map.MapMatrice[i, j].IndexFrame = 2;
                                     map.MapMatrice[i, j].UnloadSprite();
                                 }
                             }
-                        }                       
-                        
-                        if(map.MapMatrice[i,j].FireTime <= 0)
+                        }
+
+                        if (map.MapMatrice[i, j].FireTime <= 0)
                         {
-                            map.MapMatrice[i, j].FireTime = 500;// à revoire avec temp timer
+                            map.MapMatrice[i, j].FireTime = 500;// à revoir avec temps timer
                             map.MapMatrice[i, j].Fire = false;
                             map.MapMatrice[i, j].IndexFrame = 0;
                         }
@@ -434,40 +447,40 @@ namespace BOMBERMAN
                 }
             }
         }
-        
+
         public void BonusLogic()
         {
             map.Player1.CheckLocation(60);
             int colp1 = map.Player1.CasePosition[1], linep1 = map.Player1.CasePosition[0];
 
 
-            if(map.MapMatrice[colp1,linep1].bonus != null)
+            if (map.MapMatrice[colp1, linep1].bonus != null)
             {
-                switch (map.MapMatrice[colp1,linep1].bonus.BonusTtype)
+                switch (map.MapMatrice[colp1, linep1].bonus.BonusTtype)
                 {
                     case Bonus.Bonustype.BOMBE:
-                        if(map.Player1.NbBombe < 10)
+                        if (map.Player1.NbBombe < 10)
                         {
                             map.Player1.NbBombe++;
                             map.MapMatrice[colp1, linep1].bonus = null;
                         }
                         break;
                     case Bonus.Bonustype.SPEED:
-                        if(map.Player1.Vitesse<10)
+                        if (map.Player1.Vitesse < 10)
                         {
                             map.Player1.Vitesse++;
                             map.MapMatrice[colp1, linep1].bonus = null;
-                        } 
+                        }
                         break;
                     case Bonus.Bonustype.D_SPEED:
-                        if(map.Player1.Vitesse>1)
+                        if (map.Player1.Vitesse > 1)
                         {
                             map.Player1.Vitesse--;
                             map.MapMatrice[colp1, linep1].bonus = null;
                         }
-                       break;
+                        break;
                     case Bonus.Bonustype.DISAMORCE:
-                        if(map.Player1.Bonusplayer != Bonus.Bonustype.NONE)
+                        if (map.Player1.Bonusplayer != Bonus.Bonustype.NONE)
                         {
                             map.Player1.Bonusplayer = Bonus.Bonustype.DISAMORCE;
                             map.MapMatrice[colp1, linep1].bonus = null;
@@ -488,7 +501,7 @@ namespace BOMBERMAN
                         }
                         break;
                     case Bonus.Bonustype.D_EFFET:
-                        if (map.Player1.BombeEffect > 2)
+                        if (map.Player1.BombeEffect >= 2)
                         {
                             map.Player1.BombeEffect--;
                             map.MapMatrice[colp1, linep1].bonus = null;
@@ -507,15 +520,15 @@ namespace BOMBERMAN
                             map.Player1.Bonusplayer = Bonus.Bonustype.LAUNCH;
                             map.MapMatrice[colp1, linep1].bonus = null;
                         }
-                       break;
+                        break;
                     default:
                         break;
                 }
-                
-            } 
-            
-            
-            if(map.Player2 != null)
+
+            }
+
+
+            if (map.Player2 != null)
             {
                 map.Player2.CheckLocation(60);
 
@@ -595,10 +608,105 @@ namespace BOMBERMAN
                     }
                 }
             }
-            
 
-        }   
-        
+
+        }
+
+        public bool GameOver()
+        {
+            if (map.Player1.Life <= 0 || map.Player2.Life <= 0)
+                return true;
+            else
+                return false;
+        }
+
+        public void LoadGame(Graphics gr)
+        {
+            map.DrawWorldsTiles(gr);
+            map.LoadPlayerOnMap(gr);
+            map.RefreshMap(gr);
+        }
+
+        public void GameLogic(Graphics gr)
+        {
+            if (!PauseGame)
+            {
+                Interraction();
+                BombeLogic();
+                BonusLogic();
+                PlayersLogic();
+
+                if (BombInGame.Count >= 0)
+                {
+                    foreach (Bombe item in BombInGame)
+                    {
+                        item.DrawObject(gr);
+                    }
+                }
+            }
+
+            map.RefreshMap(gr);
+        }
+
+        public void SaveGame()
+        {
+            string path;
+
+            using (FolderBrowserDialog folder = new FolderBrowserDialog())
+            {
+                if (folder.ShowDialog() == DialogResult.OK)
+                {
+                    path = folder.SelectedPath + "\\map.dat";
+
+                    System.Runtime.Serialization.IFormatter formatter = new BinaryFormatter();
+                    System.IO.FileStream filestream = new System.IO.FileStream(path, System.IO.FileMode.Create);
+                    try
+                    {
+                        formatter.Serialize(filestream, new GameState(map.Player1,map.Player2, map.MapMatrice));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error has occured : " + ex.Message);
+                        return;
+                    }
+                    MessageBox.Show("File " + path + " saved successfuly !");
+                    filestream.Close();
+                }
+
+
+            }
+
+        }
+
+        public void ContinueGame()
+        {
+
+            GameState sauvegarde;
+            OpenFileDialog file = new OpenFileDialog();
+
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                string path = file.FileName;
+             
+
+                System.Runtime.Serialization.IFormatter formatter = new BinaryFormatter();
+                System.IO.FileStream filestream = new System.IO.FileStream(path, System.IO.FileMode.Open);
+                try
+                {
+                    sauvegarde = (GameState)formatter.Deserialize(filestream);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error has occured : " + ex.Message);
+                    return;
+                }
+
+                MessageBox.Show("Partie saucegarder");
+            }
+
+        }
+
         //ftn test
         public string NextCase(Keys touch)
         {
@@ -612,10 +720,10 @@ namespace BOMBERMAN
                     return "line: " + map.Player2.CasePosition[1] + " col: " + (map.Player2.CasePosition[0] + 1);
                 case Keys.S:
                     map.Player2.mvnttDirection = Player.Direction.RIGHT;
-                    return "line: " + (map.Player2.CasePosition[1] ) + " col: " + (map.Player2.CasePosition[0]+1);
+                    return "line: " + (map.Player2.CasePosition[1]) + " col: " + (map.Player2.CasePosition[0] + 1);
                 case Keys.Q:
                     map.Player2.mvnttDirection = Player.Direction.LEFT;
-                    return "line: " + (map.Player2.CasePosition[1]) + " col: " + (map.Player2.CasePosition[0]-1);
+                    return "line: " + (map.Player2.CasePosition[1]) + " col: " + (map.Player2.CasePosition[0] - 1);
                 default:
                     return "";
             }

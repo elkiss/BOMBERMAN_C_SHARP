@@ -4,7 +4,8 @@ using System.Drawing;
 
 namespace BOMBERMAN.GameWorlds
 {
-    class World
+    [Serializable]
+    public class World
     {
         private Tile[,] mapMatrice;
         private Player player1, player2;
@@ -20,14 +21,76 @@ namespace BOMBERMAN.GameWorlds
             player1 = new Player(new int[] { 0, 0 }, 27, 40, 3, 0);
             player1.Load(p1Sprites, gameparam.nameP1);
 
-            if(gameparam.gameMode == 2)
-            {
-                player2 = new Player(new int[] { 8, 8 }, 27, 40, 3, 0);
-                Player2.Load(p2Sprites, gameparam.nameP2);
-            }
+
+            player2 = new Player(new int[] { 8, 8 }, 27, 40, 3, 0);
+            Player2.Load(p2Sprites, gameparam.nameP2);
             
         }
 
+        public World(Image[] p1Sprites, Image[] p2Sprites, GameState access)
+        {
+            mapMatrice = access.timap;
+            player1 = access.p1;
+            player1.LoadSavedState(p1Sprites, access.p1.ChPlayer, GameCharacter.Direction.NONE);
+            player2 = access.p2;
+            player2.LoadSavedState(p2Sprites, access.p2.ChPlayer, GameCharacter.Direction.NONE);
+        }
+
+        public void LoadTiles()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (mapMatrice[i, j].IsDestoyable)
+                    {
+                        mapMatrice[i, j].LoadSprites(Properties.Resources.brickDest);
+                    }
+                    else if(!mapMatrice[i, j].IsDestoyable)
+                    {
+                        mapMatrice[i, j].LoadSprites(Properties.Resources.briqueSolid);
+                    }
+                    else if (mapMatrice[i, j].Fire)
+                    {
+                        mapMatrice[i, j].LoadSprites(Properties.Resources.FIRE);
+                    }
+                    else
+                    {
+                        mapMatrice[i, j].UnloadSprite();
+                    }
+
+                    if (mapMatrice[i, j].bonus != null)
+                    {
+                        switch (mapMatrice[i, j].bonus.BonusTtype)
+                        {
+                            case Bonus.Bonustype.BOMBE:
+                                mapMatrice[i, j].bonus.LoadSprites(Properties.Resources.B_BOMB);
+                                break;
+                            case Bonus.Bonustype.SPEED:
+                                mapMatrice[i, j].bonus.LoadSprites(Properties.Resources.B_SPEED);
+                               break;
+                            case Bonus.Bonustype.D_SPEED:
+                                mapMatrice[i, j].bonus.LoadSprites(Properties.Resources.B_DBOMB);
+                                break;
+                            case Bonus.Bonustype.LIFE:
+                                mapMatrice[i, j].bonus.LoadSprites(Properties.Resources.B_LIFE);
+                                break;
+                            case Bonus.Bonustype.EFFECT:
+                                mapMatrice[i, j].bonus.LoadSprites(Properties.Resources.B_EFFECT);
+                                break;
+                            case Bonus.Bonustype.D_EFFET:
+                                mapMatrice[i, j].bonus.LoadSprites(Properties.Resources.B_DEFFECT);
+                                break;
+                            case Bonus.Bonustype.NONE:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                }
+            }
+        }
 
         public void CreateTiles(Image tileDest, Image tileNotDest, int tilesSize)
         {
@@ -119,6 +182,8 @@ namespace BOMBERMAN.GameWorlds
                     {
                         mapMatrice[i, j].bonus.DrawObject(gr);
                     }
+
+                    mapMatrice[i, j].DrawObject(gr);
 
                 }
             }

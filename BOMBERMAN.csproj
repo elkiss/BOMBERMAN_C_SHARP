@@ -74,16 +74,22 @@
     </Compile>
     <Compile Include="GameObj\Bombe.cs" />
     <Compile Include="GameObj\Bonus.cs" />
-    <Compile Include="GameObj\Enemies.cs" />
     <Compile Include="GameObj\GameCharacter.cs" />
     <Compile Include="GameObj\GameObjets.cs" />
     <Compile Include="GameObj\Player.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="GameWorlds\Tile.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PauseGame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PauseGame.Designer.cs">
+      <DependentUpon>PauseGame.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -107,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PauseGame.resx">
+      <DependentUpon>PauseGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sc_game.resx">
       <DependentUpon>Sc_game.cs</DependentUpon>

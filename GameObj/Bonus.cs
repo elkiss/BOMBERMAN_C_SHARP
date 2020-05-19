@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BOMBERMAN.GameObj
 {
-    class Bonus:GameObjets
+    [Serializable]
+    public class Bonus:GameObjets
     {
 
          public enum Bonustype

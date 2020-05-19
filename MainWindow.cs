@@ -1,9 +1,12 @@
-﻿using System;
+﻿using BOMBERMAN.GameWorlds;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Packaging;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,7 +23,6 @@ namespace BOMBERMAN
 
         }
         public ChooseCharacter CharacterWindow;
-        public GameMode gameModeWindow;
         public Gameparam gameParam;
         public Sc_game GameScreen = null;
 
@@ -29,10 +31,8 @@ namespace BOMBERMAN
             InitializeComponent();
 
             CharacterWindow = new ChooseCharacter(this);
-            gameModeWindow = new GameMode(this);
             Controls.Add(CharacterWindow);
-            Controls.Add(gameModeWindow);
-            CharacterWindow.Visible = gameModeWindow.Visible = false;
+            CharacterWindow.Visible =false;
 
             #region Buttons
 
@@ -81,9 +81,39 @@ namespace BOMBERMAN
             switch (bouton.Text)
             {
                 case "NOUVELLE PARTIE":
-                    CacherControl(1);
+                    CacherControl(2);
                     break;
                 case "CHARGER PARTIE":
+                    {
+                        GameState sauvegarde;
+                        using (OpenFileDialog file = new OpenFileDialog())
+                        {
+                            if (file.ShowDialog() == DialogResult.OK)
+                            {
+                                string path = file.FileName;
+
+                                System.Runtime.Serialization.IFormatter formatter = new BinaryFormatter();
+                                System.IO.FileStream filestream = new System.IO.FileStream(path, System.IO.FileMode.Open);
+                                try
+                                {
+                                    sauvegarde = (GameState)formatter.Deserialize(filestream);
+                                    MessageBox.Show("Test ");
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("An error has occured : " + ex.Message);
+                                    return;
+                                }
+                                GameScreen = new Sc_game(this, sauvegarde);
+                                GameScreen.ShowDialog(this);
+                                filestream.Close();
+
+                            }
+                        }
+
+
+                    }
                     break;
                 case "QUITTER":
                     if (MessageBox.Show("VOULEZ VOUS QUITTER LE JEU ?", "QUITTER", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
@@ -99,26 +129,24 @@ namespace BOMBERMAN
             if(dialog == 1)
             {
                 pan_Main.Visible = CharacterWindow.Visible = false;
-                gameModeWindow.Visible = !pan_Main.Visible;               
             }
             else if(dialog == 2)
             {
-                pan_Main.Visible = gameModeWindow.Visible = false;
+                pan_Main.Visible = false;
                 CharacterWindow.Visible = !pan_Main.Visible;
             }
             else if(dialog == 3)
             {
-                gameModeWindow.Visible = CharacterWindow.Visible = false;
-                pan_Main.Visible = !gameModeWindow.Visible;
+                CharacterWindow.Visible = false;
+                pan_Main.Visible = !CharacterWindow.Visible;
             }
-
         }
 
         private void MainWindow_VisibleChanged(object sender, EventArgs e)
         {
             if(this.Visible == false && GameScreen == null)
             {
-                GameScreen = new Sc_game(this);
+                GameScreen = new Sc_game(this,null);
                 GameScreen.ShowDialog(this);
             }
         }

@@ -129,32 +129,8 @@ namespace BOMBERMAN
 
             if (bouton.Name.Equals(btn_Vp1.Name))
             {
-                if(gParam.gameParam.gameMode == 2)
-                {
-                    ActivePanel(false,1);
-                    gParam.gameParam.nameP1 = lb_p1.Text;
-                }
-                else
-                {
-                    gParam.gameParam.nameP1 = lb_p1.Text;
-                    ActivePanel(false, 2);
-                    switch (MessageBox.Show("COMMENCER LA PARTIE \n\nCANCEL POUR CHOISIR UN JOUEUR", "confirmation", MessageBoxButtons.YesNoCancel))
-                    {
-                        case DialogResult.Cancel:
-
-                            break;
-                        case DialogResult.Yes:
-                            gParam.GameScreen = new Sc_game(gParam);
-                            gParam.GameScreen.ShowDialog(gParam);
-                            gParam.CacherControl(3);
-                            break;
-                        case DialogResult.No:
-                            gParam.CacherControl(3);
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                 gParam.gameParam.nameP1 = lb_p1.Text;
+                 ActivePanel(false, 1);
             }
             else if (bouton.Name.Equals(btn_Cp1.Name))
             {
@@ -169,23 +145,27 @@ namespace BOMBERMAN
                 else
                 {
                     ActivePanel(false, 3);
-                    gParam.gameParam.nameP2 = lb_p2.Text;
-                    switch (MessageBox.Show("COMMENCER LA PARTIE /CANCEL POUR CHOISIR UN JOUEUR", "confirmation", MessageBoxButtons.YesNoCancel))
-                    {
-                        case DialogResult.Cancel:
 
-                            break;                     
-                        case DialogResult.Yes:
-                            gParam.GameScreen = new Sc_game(gParam);
-                            gParam.GameScreen.ShowDialog();                           
-                            gParam.CacherControl(3);
-                            break;
-                        case DialogResult.No:
-                            gParam.CacherControl(3);
-                            break;
-                        default:
-                            break;
-                    }
+                    gParam.gameParam.nameP2 = lb_p2.Text;
+
+                    if(btn_Vp1.Enabled == false)
+                        switch (MessageBox.Show("COMMENCER LA PARTIE /CANCEL POUR CHOISIR UN JOUEUR", "confirmation", MessageBoxButtons.YesNoCancel))
+                        {
+                            case DialogResult.Cancel:
+
+                                break;                     
+                            case DialogResult.Yes:
+                                gParam.gameParam.gameMode = 2;
+                                gParam.GameScreen = new Sc_game(gParam,null);
+                                gParam.GameScreen.ShowDialog();                           
+                                gParam.CacherControl(3);
+                                break;
+                            case DialogResult.No:
+                                gParam.CacherControl(3);
+                                break;
+                            default:
+                                break;
+                        }
                     
                 }
             }
@@ -195,14 +175,13 @@ namespace BOMBERMAN
             }
             else if (bouton.Name.Equals(btn_nextP1.Name))
             {
-                if(indexch > character.Count - 1)
+                if(indexch >= character.Count)
                 {
                     indexch = 0;
                 }
-                lb_p1.Text = characterName[indexch];
-                pb_p1.BackgroundImage = character[indexch];
-                indexch++;
-               
+                    lb_p1.Text = characterName[indexch];
+                    pb_p1.BackgroundImage = character[indexch];
+                    indexch++;              
             }
             else if (bouton.Name.Equals(btn_prevP1.Name))
             {
@@ -220,10 +199,12 @@ namespace BOMBERMAN
             } 
             else if (bouton.Name.Equals(btn_nextP2.Name))
             {
-                if(indexch > character.Count - 1)
+                if(indexch >= character.Count)
                 {
                     indexch = 0;
                 }
+                else
+
                 lb_p2.Text = characterName[indexch];
                 pb_p2.BackgroundImage = character[indexch];
                 indexch++;
