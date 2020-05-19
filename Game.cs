@@ -236,7 +236,7 @@ namespace BOMBERMAN
                                 if (!tileMap[col - 1, line + 1].IsFree || !tileMap[col - 1, line].IsFree)
                                     return true;
 
-                        if (CollisionBetweenRectagle(rect, tileMap[col, line].Source) && !tileMap[col, line].IsFree)
+                        if (CollisionBetweenRectagle(rect, tileMap[col-1, line].Source) && !tileMap[col-1, line].IsFree)
                             return true;
                     }
 
@@ -582,12 +582,11 @@ namespace BOMBERMAN
                             }
                             break;
                         case Bonus.Bonustype.D_EFFET:
-                            if (map.Player2.BombeEffect > 2)
+                            if (map.Player2.BombeEffect >= 2)
                             {
                                 map.Player2.BombeEffect--;
                                 map.MapMatrice[colp2, linep2].bonus = null;
                             }
-                            map.Player2.BombeEffect--;
                             break;
                         case Bonus.Bonustype.KICK:
                             if (map.Player2.Bonusplayer != Bonus.Bonustype.NONE)
