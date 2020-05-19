@@ -20,12 +20,14 @@ namespace BOMBERMAN.GameObj
 
         public bool Disamorced { get; set; }
 
+        private Player.Character who;
+
 
         public int DetonTime { get => detonTime; set => detonTime = value; }
         internal Player.Character Who { get => who; set => who = value; }
         public int Effect { get => effect; set => effect = value; }
 
-        private Player.Character who;
+       
 
         public Bombe(int[] casePos,int fHeigth,int fWidth,int nbframe,Player.Character who)
             :base(casePos,fWidth,fHeigth,nbframe)

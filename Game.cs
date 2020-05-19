@@ -707,26 +707,6 @@ namespace BOMBERMAN
 
         }
 
-        //ftn test
-        public string NextCase(Keys touch)
-        {
-            switch (touch)
-            {
-                case Keys.Z:
-                    map.Player2.mvnttDirection = Player.Direction.UP;
-                    return "line: " + map.Player2.CasePosition[1] + " col: " + (map.Player2.CasePosition[0] - 1);
-                case Keys.W:
-                    map.Player2.mvnttDirection = Player.Direction.DOWN;
-                    return "line: " + map.Player2.CasePosition[1] + " col: " + (map.Player2.CasePosition[0] + 1);
-                case Keys.S:
-                    map.Player2.mvnttDirection = Player.Direction.RIGHT;
-                    return "line: " + (map.Player2.CasePosition[1]) + " col: " + (map.Player2.CasePosition[0] + 1);
-                case Keys.Q:
-                    map.Player2.mvnttDirection = Player.Direction.LEFT;
-                    return "line: " + (map.Player2.CasePosition[1]) + " col: " + (map.Player2.CasePosition[0] - 1);
-                default:
-                    return "";
-            }
-        }
+   
     }
 }
